@@ -1,21 +1,57 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
+import firstLetterUppercase from '../Lib/firstLetterUppercase';
+import '../Css/CustomSelect.css';
 
-function SelectCategory() {
+type Props = {
+    value: string,
+    onChange: Dispatch<SetStateAction<string>>,
+    options: string[],
+    placeholder: string
+}
+function Select({
+  value, onChange, options, placeholder,
+}: Props) {
+  const [open, setOpen] = useState(false);
   return (
-    <div className="select-category">
+    <div className={`custom-select ${(open) ? 'open' : ''} ${(value !== '') ? 'select' : ''}`}>
       <fieldset>
-        <legend>Choose category</legend>
-        <label htmlFor="nerdy">
-          Nerdy
-          <input type="radio" id="nerdy" name="category" value="nerdy" />
-        </label>
-        <label htmlFor="explicit">
-          Explicit
-          <input type="radio" id="explicit" name="category" value="explicit" />
-        </label>
+        <legend>
+          <button
+            type="button"
+            onClick={() => {
+              if (open) onChange('');
+              setOpen(!open);
+            }}
+          >
+            {(value !== '' && !open) ? firstLetterUppercase(value) : placeholder}
+          </button>
+        </legend>
+        <div className="options">
+          {options.map((option) => (
+            <label
+              key={option}
+              htmlFor={`${option}id`}
+            >
+              <input
+                type="radio"
+                id={`${option}id`}
+                value={option}
+                onChange={() => {
+                  onChange(option);
+                  setOpen(false);
+                }}
+                onClick={() => {
+                  onChange(option);
+                  setOpen(false);
+                }}
+              />
+              <span className="text">{firstLetterUppercase(option)}</span>
+            </label>
+          ))}
+        </div>
       </fieldset>
     </div>
   );
 }
 
-export default SelectCategory;
+export default Select;

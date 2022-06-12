@@ -3,9 +3,11 @@ import './Css/App.css';
 import Header from './Componets/Header';
 import Quote from './Componets/Quote';
 import JokesCounter from './Componets/JokesCounter';
-import SelectCategory from './Componets/SelectCategory';
 import NameInput from './Componets/NameInput';
 import jokeType from './Types/jokeType';
+import Select from './Componets/SelectCategory';
+import urlParameterType from './Types/urlParameterType';
+import parseUrlParameters from './Lib/parseUrlParameters';
 
 function App() {
   const baseUrl = 'http://api.icndb.com/jokes';
@@ -14,6 +16,7 @@ function App() {
   const [isPending, setIsPending] = useState<boolean>(true);
   const [error, setError] = useState<any>(null);
   const [name, setName] = useState('');
+  const [category, setCategory] = useState('');
 
   const fetchJoke = (requestUrl: string) => {
     fetch(requestUrl).then((response) => {
@@ -35,7 +38,13 @@ function App() {
 
   const drawJoke = () => {
     let requestUrl = `${baseUrl}/random`;
-    if (name !== '') requestUrl += `?firstName=${name}&lastName=`;
+    const urlParameters: urlParameterType[] = [];
+    if (name !== '') {
+      urlParameters.push({ name: 'firstName', value: name });
+      urlParameters.push({ name: 'lastName', value: '' });
+    }
+    if (category !== '') urlParameters.push({ name: 'limitTo', value: category });
+    requestUrl = parseUrlParameters(requestUrl, urlParameters);
     fetchJoke(requestUrl);
   };
 
@@ -47,7 +56,12 @@ function App() {
         {isPending && 'Loading ...'}
         {error && 'Chuck is on vacation. Try again later.'}
       </Quote>
-      <SelectCategory />
+      <Select
+        value={category}
+        onChange={setCategory}
+        options={['explicit', 'nerdy']}
+        placeholder="Select category"
+      />
       <NameInput value={name} setName={setName} />
       <button
         type="button"

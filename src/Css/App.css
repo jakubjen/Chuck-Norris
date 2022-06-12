@@ -76,7 +76,7 @@
   text-align: center;
 }
 
-.select-category {
+.custom-select {
   margin-top: 30px;
 }
 
@@ -180,7 +180,3 @@ button.bt:disabled {
   border-radius: 50%;
   border: solid 2px var(--dark);
 }
-
-
-
-
