@@ -58,7 +58,7 @@ function App() {
   };
 
   const downloadJokes = () => {
-    fetch(`http://api.icndb.com/jokes/random/${numberOfJokes}`)
+    fetch(`${baseUrl}/jokes/random/${numberOfJokes}`)
       .then((response) => {
         setDowloadError(null);
         if (!response.ok) throw new Error('Data not fetch.');
