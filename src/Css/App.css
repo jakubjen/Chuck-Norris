@@ -152,8 +152,9 @@ button.bt:disabled {
   }
 }
 
-.bottom-controls .button-wrapper{
+.button-wrapper{
   flex: 4;
+
 }
 
 .jokes-counter {
@@ -165,12 +166,16 @@ button.bt:disabled {
   padding: 20px 10px;
   border-radius: var(--border-radius);
 }
+.jokes-counter.error {
+  background: var(--red-error);
+}
 
 @media screen and (min-width: 480px) {
   .bottom-controls {
-    padding: 0 10px;
+    padding: 0 0;
   }
 }
+
 
 .jokes-counter button{
   color: var(--dark);
@@ -178,5 +183,12 @@ button.bt:disabled {
   width: 30px;
   height: 30px;
   border-radius: 50%;
+  background: transparent;
   border: solid 2px var(--dark);
+}
+
+.errorJokeCounterText {
+  color: var(--red-error);
+  padding-top: 30px;
+  font-size: .9rem;
 }

@@ -17,10 +17,14 @@ function App() {
   const [error, setError] = useState<any>(null);
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');
+  const [numberOfJokes, setNumberOfJokes] = useState(1);
+  const [numberOfJokesError, setNumberOfJokesError] = useState(false);
+  const [downloadError, setDowloadError] = useState(null);
 
   const fetchJoke = (requestUrl: string) => {
     fetch(requestUrl).then((response) => {
       setIsPending(true);
+      setJoke(undefined);
       if (!response.ok) throw new Error('Data not fetch.');
       return response.json();
     }).then((data) => {
@@ -36,6 +40,11 @@ function App() {
     fetchJoke(url);
   }, [url]);
 
+  useEffect(() => {
+    if (numberOfJokes > 100 || numberOfJokes < 1) return setNumberOfJokesError(true);
+    return setNumberOfJokesError(false);
+  }, [numberOfJokes]);
+
   const drawJoke = () => {
     let requestUrl = `${baseUrl}/random`;
     const urlParameters: urlParameterType[] = [];
@@ -46,6 +55,25 @@ function App() {
     if (category !== '') urlParameters.push({ name: 'limitTo', value: category });
     requestUrl = parseUrlParameters(requestUrl, urlParameters);
     fetchJoke(requestUrl);
+  };
+
+  const downloadJokes = () => {
+    fetch(`http://api.icndb.com/jokes/random/${numberOfJokes}`)
+      .then((response) => {
+        setDowloadError(null);
+        if (!response.ok) throw new Error('Data not fetch.');
+        return response.json();
+      }).then((data) => {
+        const dataToFile = data.value.reduce((cos: string, jokeInLoop:jokeType) => `${cos}${jokeInLoop.joke}\n`, '');
+        const element = document.createElement('a');
+        element.setAttribute('href', `data:text/plain;charset=utf-8, ${encodeURIComponent(dataToFile)}`);
+        element.setAttribute('download', 'jokes.txt');
+        document.body.appendChild(element); // downloadJokes(numberOfJokes);
+        element.click();
+      }).catch((e) => {
+        setDowloadError(e);
+      });
+    return error;
   };
 
   return (
@@ -75,11 +103,34 @@ function App() {
         Joke
       </button>
       <div className="bottom-controls">
-        <JokesCounter />
+        <JokesCounter
+          value={numberOfJokes}
+          error={numberOfJokesError}
+          onChange={setNumberOfJokes}
+        />
         <div className="button-wrapper">
-          <button type="button" className="bt save-jokes" disabled>Save jokes</button>
+          <button
+            type="button"
+            className="bt save-jokes"
+            disabled={numberOfJokesError}
+            onClick={() => {
+              downloadJokes();
+            }}
+          >
+            Save jokes
+          </button>
         </div>
       </div>
+      { (numberOfJokesError) && (
+      <span className="errorJokeCounterText">
+        You can pick a number from 1 to 100.
+      </span>
+      )}
+      { (downloadError) && (
+      <span className="errorJokeCounterText">
+        Something goes wrong. Try again later;
+      </span>
+      )}
     </div>
 
   );
