@@ -96,7 +96,7 @@
   transition: top ease-in-out 0.2s;
 }
 
-.text-input-wrapper input:focus ~ .label {
+.text-input-wrapper input:focus ~ .label, .text-input-wrapper input.not-empty  ~ .label {
   top: 18px;
 }
 

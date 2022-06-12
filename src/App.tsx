@@ -13,6 +13,7 @@ function App() {
   const [joke, setJoke] = useState<jokeType>();
   const [isPending, setIsPending] = useState<boolean>(true);
   const [error, setError] = useState<any>(null);
+  const [name, setName] = useState('');
 
   const fetchJoke = (requestUrl: string) => {
     fetch(requestUrl).then((response) => {
@@ -33,7 +34,9 @@ function App() {
   }, [url]);
 
   const drawJoke = () => {
-    fetchJoke(`${baseUrl}/random`);
+    let requestUrl = `${baseUrl}/random`;
+    if (name !== '') requestUrl += `?firstName=${name}&lastName=`;
+    fetchJoke(requestUrl);
   };
 
   return (
@@ -45,13 +48,17 @@ function App() {
         {error && 'Chuck is on vacation. Try again later.'}
       </Quote>
       <SelectCategory />
-      <NameInput />
+      <NameInput value={name} setName={setName} />
       <button
         type="button"
         className="bt draw"
         onClick={drawJoke}
       >
-        Draw a random Chuck Norris Joke
+        Draw a random
+        {' '}
+        {(name !== '' ? name : 'Chuck Norris')}
+        {' '}
+        Joke
       </button>
       <div className="bottom-controls">
         <JokesCounter />
