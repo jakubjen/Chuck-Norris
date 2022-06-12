@@ -78,7 +78,7 @@ function App() {
 
   return (
     <div className="container">
-      <Header />
+      <Header chuckFace={name === ''} />
       <Quote>
         {joke && `"${joke.joke}"`}
         {isPending && 'Loading ...'}

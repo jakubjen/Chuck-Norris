@@ -63,11 +63,17 @@
     border-radius: var(--border-radius);
   }
 }
-
+header{
+ text-align: center;
+}
 .chuck-image {
   width: 100%;
 }
 
+img.man {
+  width: 100%;
+  max-width: 100px;
+}
 .quote {
   color: var(--dark);
   font-style:  italic;
