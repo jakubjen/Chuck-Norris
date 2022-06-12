@@ -10,7 +10,7 @@ import urlParameterType from './Types/urlParameterType';
 import parseUrlParameters from './Lib/parseUrlParameters';
 
 function App() {
-  const baseUrl = 'http://api.icndb.com/jokes';
+  const baseUrl = 'https://api.icndb.com/jokes';
   const [url] = useState(`${baseUrl}/random`);
   const [joke, setJoke] = useState<jokeType>();
   const [isPending, setIsPending] = useState<boolean>(true);
