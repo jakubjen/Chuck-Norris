@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './App.css';
+import './Css/App.css';
 import Header from './Componets/Header';
 import Quote from './Componets/Quote';
 import JokesCounter from './Componets/JokesCounter';
@@ -40,7 +40,9 @@ function App() {
     <div className="container">
       <Header />
       <Quote>
-        {!isPending && !error && joke && `"${joke.joke}"`}
+        {joke && `"${joke.joke}"`}
+        {isPending && 'Loading ...'}
+        {error && 'Chuck is on vacation. Try again later.'}
       </Quote>
       <SelectCategory />
       <NameInput />

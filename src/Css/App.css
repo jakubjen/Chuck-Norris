@@ -73,6 +73,7 @@
   font-style:  italic;
   font-weight: 600;
   margin-top: var(--margin-top);
+  text-align: center;
 }
 
 .select-category {
@@ -113,7 +114,6 @@
   outline: none;
   border-color: var(--dark);
 }
-
 
 button.bt {
   width: 100%;
