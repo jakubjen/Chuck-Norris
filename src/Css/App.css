@@ -182,7 +182,6 @@ button.bt:disabled {
   }
 }
 
-
 .jokes-counter button{
   color: var(--dark);
   font-size: 1.3rem;
@@ -191,6 +190,21 @@ button.bt:disabled {
   border-radius: 50%;
   background: transparent;
   border: solid 2px var(--dark);
+}
+
+.jokes-counter input[type=number] {
+  background: transparent;
+  border: none;
+  text-align: center;
+  -moz-appearance: textfield;
+  outline: none;
+  width: 30px;
+}
+
+.jokes-counter input[type=number]::-webkit-inner-spin-button,
+.jokes-counter input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .errorJokeCounterText {

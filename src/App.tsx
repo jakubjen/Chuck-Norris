@@ -17,7 +17,7 @@ function App() {
   const [error, setError] = useState<any>(null);
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');
-  const [numberOfJokes, setNumberOfJokes] = useState(1);
+  const [numberOfJokes, setNumberOfJokes] = useState('1');
   const [numberOfJokesError, setNumberOfJokesError] = useState(false);
   const [downloadError, setDownloadError] = useState(null);
 
@@ -41,7 +41,8 @@ function App() {
   }, [url]);
 
   useEffect(() => {
-    if (numberOfJokes > 100 || numberOfJokes < 1) return setNumberOfJokesError(true);
+    if (Number(numberOfJokes) > 100
+        || Number(numberOfJokes) < 1) return setNumberOfJokesError(true);
     return setNumberOfJokesError(false);
   }, [numberOfJokes]);
 
