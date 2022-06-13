@@ -58,7 +58,7 @@ function App() {
   };
 
   const downloadJokes = () => {
-    fetch(`${baseUrl}/jokes/random/${numberOfJokes}`)
+    fetch(`${baseUrl}/random/${numberOfJokes}`)
       .then((response) => {
         setDowloadError(null);
         if (!response.ok) throw new Error('Data not fetch.');
