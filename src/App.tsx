@@ -88,7 +88,7 @@ function App() {
         value={category}
         onChange={setCategory}
         options={['explicit', 'nerdy']}
-        placeholder="Select category"
+        placeholder="Category"
       />
       <NameInput value={name} setName={setName} />
       <button
