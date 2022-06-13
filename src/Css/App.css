@@ -199,6 +199,7 @@ button.bt:disabled {
   -moz-appearance: textfield;
   outline: none;
   width: 30px;
+  color: var(--dark);
 }
 
 .jokes-counter input[type=number]::-webkit-inner-spin-button,
