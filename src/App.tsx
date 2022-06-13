@@ -10,7 +10,7 @@ import urlParameterType from './Types/urlParameterType';
 import parseUrlParameters from './Lib/parseUrlParameters';
 
 function App() {
-  const baseUrl = 'https://api.icndb.com/jokes';
+  const baseUrl = 'http://api.icndb.com/jokes';
   const [url] = useState(`${baseUrl}/random`);
   const [joke, setJoke] = useState<jokeType>();
   const [isPending, setIsPending] = useState<boolean>(true);
@@ -19,7 +19,7 @@ function App() {
   const [category, setCategory] = useState('');
   const [numberOfJokes, setNumberOfJokes] = useState(1);
   const [numberOfJokesError, setNumberOfJokesError] = useState(false);
-  const [downloadError, setDowloadError] = useState(null);
+  const [downloadError, setDownloadError] = useState(null);
 
   const fetchJoke = (requestUrl: string) => {
     fetch(requestUrl).then((response) => {
@@ -60,7 +60,7 @@ function App() {
   const downloadJokes = () => {
     fetch(`${baseUrl}/random/${numberOfJokes}`)
       .then((response) => {
-        setDowloadError(null);
+        setDownloadError(null);
         if (!response.ok) throw new Error('Data not fetch.');
         return response.json();
       }).then((data) => {
@@ -71,7 +71,7 @@ function App() {
         document.body.appendChild(element); // downloadJokes(numberOfJokes);
         element.click();
       }).catch((e) => {
-        setDowloadError(e);
+        setDownloadError(e);
       });
     return error;
   };
