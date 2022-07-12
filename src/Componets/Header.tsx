@@ -1,7 +1,8 @@
 import React from 'react';
+import Blank from './';
 
 type Props = {
-    chuckFace:boolean
+       chuckFace:boolean
 }
 function Header({ chuckFace }:Props) {
   return (
