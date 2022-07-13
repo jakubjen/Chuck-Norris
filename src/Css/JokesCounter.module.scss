@@ -1,26 +1,29 @@
+@use 'Variables';
+@use 'BreakPoint';
+
 .jokes-counter {
     display: flex;
-    background: var(--gray-2);
+    background: Variables.$gray-2;
     align-items: center;
     justify-content: space-between;
     flex: 2;
     padding: 20px 10px;
-    border-radius: var(--border-radius);
+    border-radius: Variables.$border-radius;
 
-    @media screen and (min-width: 480px) {
+    @include BreakPoint.md {
       .bottom-controls {
         padding: 0 0;
       }
     }
 
     button{
-      color: var(--dark);
+      color: Variables.$dark;
       font-size: 1.3rem;
       width: 30px;
       height: 30px;
       border-radius: 50%;
       background: transparent;
-      border: solid 2px var(--dark);
+      border: solid 2px Variables.$dark;
     }
     
     input[type=number] {
@@ -31,7 +34,7 @@
       outline: none;
       width: 50px;
       height: 30px;
-      color: var(--dark);
+      color: Variables.$dark;
     }
 
     input[type=number]::-webkit-inner-spin-button,

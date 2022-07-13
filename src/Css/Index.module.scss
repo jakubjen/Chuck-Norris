@@ -1,16 +1,31 @@
 @use 'Container';
 @use 'Buttons'; 
+@use 'Variables';
+@use 'BreakPoint';
+
+.root {
+    background: Variables.$gray-2;
+    font-family: 'Inter', sans-serif;
+    font-style:  normal;
+    font-weight: 400;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    color: Variables.$dark;
+}  
 
 .bottom-controls {
     display: flex;
     justify-content: space-between;
     gap: 30px;
-    margin-top: var(--margin-top);
+    margin-top: Variables.$margin-top;
     flex-direction: column;
 
-    @media screen and (min-width: 480px) {
+    @include BreakPoint.md {
         & {
-        flex-direction: row;
+            flex-direction: row;
         }
     }
 
@@ -20,7 +35,7 @@
 }
 
 .errorJokeCounterText {
-    color: var(--red-error);
+    color: Variables.$red-error;
     font-size: .95rem;
 }
   

@@ -25,27 +25,3 @@
   margin: 0;
   box-sizing: border-box;
 }
-
-:root {
-  --gray-2: #f5f6f8;
-  --white: #ffffff;
-  --red-error: #f39a9a;
-  --gray-1: #c4c4c4;
-  --dark: #34394f;
-  --border-radius: 8px;
-  --margin-top: 30px;
-}
-
-#root {
-  background: var(--gray-2);
-  font-family: 'Inter', sans-serif;
-  font-style:  normal;
-  font-weight: 400;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 18px;
-  color: var(--dark);
-}
-

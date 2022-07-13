@@ -79,62 +79,64 @@ function App() {
   };
 
   return (
-    <div className={style.container}>
-      <Header chuckFace={name === ''} />
-      <Quote>
-        {joke && `"${joke.joke}"`}
-        {isPending && 'Loading ...'}
-        {error && 'Chuck is on vacation. Try again later.'}
-      </Quote>
-      <Select
-        value={category}
-        onChange={setCategory}
-        options={['explicit', 'nerdy']}
-        placeholder="Category"
-      />
-      <NameInput value={name} setName={setName} />
-      <button
-        type="button"
-        className={`${style.bt} ${style.draw}`}
-        onClick={drawJoke}
-      >
-        Draw a random
-        {' '}
-        {(name !== '' ? name : 'Chuck Norris')}
-        {' '}
-        Joke
-      </button>
-      <div className={style['bottom-controls']}>
-        <JokesCounter
-          value={numberOfJokes}
-          error={numberOfJokesError}
-          onChange={setNumberOfJokes}
+    <div className={style.root}>
+      <div className={style.container}>
+        <Header chuckFace={name === ''} />
+        <Quote>
+          {joke && `"${joke.joke}"`}
+          {isPending && 'Loading ...'}
+          {error && 'Chuck is on vacation. Try again later.'}
+        </Quote>
+        <Select
+          value={category}
+          onChange={setCategory}
+          options={['explicit', 'nerdy']}
+          placeholder="Category"
         />
-        <div className={style['button-wrapper']}>
-          <button
-            type="button"
-            className={`${style.bt} ${style['save-jokes']}`}
-            disabled={numberOfJokesError}
-            onClick={() => {
-              downloadJokes();
-            }}
-          >
-            Save jokes
-          </button>
+        <NameInput value={name} setName={setName} />
+        <button
+          type="button"
+          className={`${style.bt} ${style.draw}`}
+          onClick={drawJoke}
+        >
+          Draw a random
+          {' '}
+          {(name !== '' ? name : 'Chuck Norris')}
+          {' '}
+          Joke
+        </button>
+        <div className={style['bottom-controls']}>
+          <JokesCounter
+            value={numberOfJokes}
+            error={numberOfJokesError}
+            onChange={setNumberOfJokes}
+          />
+          <div className={style['button-wrapper']}>
+            <button
+              type="button"
+              className={`${style.bt} ${style['save-jokes']}`}
+              disabled={numberOfJokesError}
+              onClick={() => {
+                downloadJokes();
+              }}
+            >
+              Save jokes
+            </button>
+          </div>
         </div>
+        { (numberOfJokesError) && (
+        <span className={style.errorJokeCounterText}>
+          You can pick a number from 1 to 100.
+        </span>
+        )}
+        { (downloadError) && (
+        <span className={style.errorJokeCounterText}>
+          Something goes wrong. Try again later;
+        </span>
+        )}
       </div>
-      { (numberOfJokesError) && (
-      <span className={style.errorJokeCounterText}>
-        You can pick a number from 1 to 100.
-      </span>
-      )}
-      { (downloadError) && (
-      <span className={style.errorJokeCounterText}>
-        Something goes wrong. Try again later;
-      </span>
-      )}
-    </div>
 
+    </div>
   );
 }
 

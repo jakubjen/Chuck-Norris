@@ -1,18 +1,20 @@
+@use 'Variables';
+
 .custom-select {
-    border: solid 2px var(--gray-1);
-    border-radius: var(--border-radius);
+    border: solid 2px Variables.$gray-1;
+    border-radius: Variables.$border-radius;
     position: relative;
-    background: var(--white);
+    background: Variables.$white;
 
     &.select {
-        border-color: var(--dark);
+        border-color: Variables.$dark;
 
         fieldset button{
-            color: var(--dark);
+            color: Variables.$dark;
         }
 
         fieldset .options {
-            border-color: var(--dark);
+            border-color: Variables.$dark;
         }
     }
 
@@ -35,9 +37,9 @@
         padding: 22px 20px;
         width: 100%;
         border: none;
-        color: var(--gray-1);
-        background: var(--white);
-        border-radius: var(--border-radius);
+        color: Variables.$gray-1;
+        background: Variables.$white;
+        border-radius: Variables.$border-radius;
         text-align: left;
     }
 
@@ -47,9 +49,9 @@
         top: 50px;
         left: -2px;
         width: 100%;
-        background: var(--white);
-        border-radius: 0  0 var(--border-radius) var(--border-radius);
-        border: solid 2px var(--gray-1);
+        background: Variables.$white;
+        border-radius: 0  0 Variables.$border-radius Variables.$border-radius;
+        border: solid 2px Variables.$gray-1;
         box-sizing: content-box;
         border-top: none;
         padding: 10px 0;
@@ -62,13 +64,13 @@
         display: block;
         padding: 22px 25px;
         margin: 0 10px;
-        border-radius: var(--border-radius);
-        color: var(--dark);
+        border-radius: Variables.$border-radius;
+        color: Variables.$dark;
     }
     
     &.open, &, fieldset label .text:hover, .custom-select fieldset label input[type=radio]:focus ~ .text  {
-        color: var(--dark);
-        background: var(--gray-1);
+        color: Variables.$dark;
+        background: Variables.$gray-1;
     }
     fieldset label input[type=radio]{
         position: absolute;

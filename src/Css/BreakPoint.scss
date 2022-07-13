@@ -1,0 +1,6 @@
+@use 'Variables';
+@mixin md {
+    @media screen and (min-width: Variables.$md-break-point) {
+        @content
+    }
+}
