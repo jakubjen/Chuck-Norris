@@ -1,0 +1,35 @@
+@use 'Variables';
+.text-input-wrapper {
+    position: relative;
+    margin-top: Variables.$margin-top;
+
+    .label {
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        color: Variables.$gray-1;
+        transform: translateY(-50%);
+        font-size: .8em;
+        transition: top ease-in-out 0.2s;
+      }
+
+      & input:focus ~ .label, & input.not-empty  ~ .label {
+        top: 18px;
+      }
+
+     & input {
+        font-size: .9em;
+        width: 100%;
+        border: solid 2px Variables.$gray-1;
+        color: Variables.$dark;
+        border-radius: Variables.$border-radius;
+        padding: 22px 20px;
+      }
+
+      & input:focus, & input.not-empty{
+        padding: 32px 20px 12px 20px;
+        outline: none;
+        border-color: Variables.$dark;
+      }
+
+} 

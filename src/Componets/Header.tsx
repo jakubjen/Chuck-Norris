@@ -1,14 +1,14 @@
 import React from 'react';
-import Blank from './';
+import style from '../Css/Header.module.scss';
 
 type Props = {
-       chuckFace:boolean
+  chuckFace:boolean
 }
 function Header({ chuckFace }:Props) {
   return (
     <header>
-      {chuckFace && (<img src="/images/chuck.png" className="chuck-image" alt="Chuck Noris with black hat and black sunglasses" />)}
-      {!chuckFace && (<img src="/images/face.png" className="man" alt="Solid icon of man" />)}
+      {chuckFace && (<img src="/images/chuck.png" className={style['chuck-image']} alt="Chuck Noris with black hat and black sunglasses" />)}
+      {!chuckFace && (<img src="/images/face.png" className={style.man} alt="Solid icon of man" />)}
     </header>
   );
 }

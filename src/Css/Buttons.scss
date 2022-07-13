@@ -1,0 +1,25 @@
+@use 'Variables.scss';
+
+button.bt {
+    width: 100%;
+    padding: 22px;
+    background: Variables.$dark;
+    color: Variables.$white;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: Variables.$border-radius;
+    border: none;
+  }
+  
+  button.bt.draw {
+    margin-top: Variables.$margin-top;
+  }
+  
+  button.bt.save-jokes {
+    font-weight: 400;
+  }
+  button.bt:disabled {
+    background: Variables.$gray-2;
+    color: Variables.$dark;
+  }
+  

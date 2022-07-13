@@ -1,0 +1,16 @@
+@use 'Variables';
+@use 'BreakPoint';
+.container {
+    background: Variables.$white;
+    width: 100%;
+    max-width: 560px;
+    box-shadow: rgba(0, 0, 0,.2) 2px 2px 8px;
+    padding: 20px 20px 30px;
+
+    @include BreakPoint.md {
+        & {
+          padding: 45px 60px 50px 60px;
+          border-radius: Variables.$border-radius;
+        }
+      }
+}
