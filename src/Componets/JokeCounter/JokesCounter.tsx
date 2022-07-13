@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react';
 
-import style from '../Css/JokesCounter.module.scss';
+import style from './JokesCounter.module.scss';
 
 type Props = {
     value: string,
