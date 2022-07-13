@@ -1,0 +1,26 @@
+@use 'Container';
+@use 'Buttons'; 
+
+.bottom-controls {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-top: var(--margin-top);
+    flex-direction: column;
+
+    @media screen and (min-width: 480px) {
+        & {
+        flex-direction: row;
+        }
+    }
+
+    .button-wrapper{
+        flex: 4;
+    }
+}
+
+.errorJokeCounterText {
+    color: var(--red-error);
+    font-size: .95rem;
+}
+  

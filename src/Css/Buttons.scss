@@ -1,0 +1,24 @@
+
+button.bt {
+    width: 100%;
+    padding: 22px;
+    background: var(--dark);
+    color: var(--white);
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: var(--border-radius);
+    border: none;
+  }
+  
+  button.bt.draw {
+    margin-top: var(--margin-top);
+  }
+  
+  button.bt.save-jokes {
+    font-weight: 400;
+  }
+  button.bt:disabled {
+    background: var(--gray-2);
+    color: var(--dark);
+  }
+  

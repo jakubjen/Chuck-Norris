@@ -8,6 +8,7 @@ import jokeType from './Types/jokeType';
 import Select from './Componets/SelectCategory';
 import urlParameterType from './Types/urlParameterType';
 import parseUrlParameters from './Lib/parseUrlParameters';
+import style from './Css/Index.module.scss';
 
 function App() {
   const baseUrl = 'http://api.icndb.com/jokes';
@@ -78,7 +79,7 @@ function App() {
   };
 
   return (
-    <div className="container">
+    <div className={style.container}>
       <Header chuckFace={name === ''} />
       <Quote>
         {joke && `"${joke.joke}"`}
@@ -94,7 +95,7 @@ function App() {
       <NameInput value={name} setName={setName} />
       <button
         type="button"
-        className="bt draw"
+        className={`${style.bt} ${style.draw}`}
         onClick={drawJoke}
       >
         Draw a random
@@ -103,16 +104,16 @@ function App() {
         {' '}
         Joke
       </button>
-      <div className="bottom-controls">
+      <div className={style['bottom-controls']}>
         <JokesCounter
           value={numberOfJokes}
           error={numberOfJokesError}
           onChange={setNumberOfJokes}
         />
-        <div className="button-wrapper">
+        <div className={style['button-wrapper']}>
           <button
             type="button"
-            className="bt save-jokes"
+            className={`${style.bt} ${style['save-jokes']}`}
             disabled={numberOfJokesError}
             onClick={() => {
               downloadJokes();
@@ -123,12 +124,12 @@ function App() {
         </div>
       </div>
       { (numberOfJokesError) && (
-      <span className="errorJokeCounterText">
+      <span className={style.errorJokeCounterText}>
         You can pick a number from 1 to 100.
       </span>
       )}
       { (downloadError) && (
-      <span className="errorJokeCounterText">
+      <span className={style.errorJokeCounterText}>
         Something goes wrong. Try again later;
       </span>
       )}

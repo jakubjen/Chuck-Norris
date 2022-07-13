@@ -1,0 +1,44 @@
+.jokes-counter {
+    display: flex;
+    background: var(--gray-2);
+    align-items: center;
+    justify-content: space-between;
+    flex: 2;
+    padding: 20px 10px;
+    border-radius: var(--border-radius);
+
+    @media screen and (min-width: 480px) {
+      .bottom-controls {
+        padding: 0 0;
+      }
+    }
+
+    button{
+      color: var(--dark);
+      font-size: 1.3rem;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: transparent;
+      border: solid 2px var(--dark);
+    }
+    
+    input[type=number] {
+      background: transparent;
+      border: none;
+      text-align: center;
+      -moz-appearance: textfield;
+      outline: none;
+      width: 50px;
+      height: 30px;
+      color: var(--dark);
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }  
+
+  

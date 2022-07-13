@@ -1,11 +1,12 @@
 import React from 'react';
+import style from '../Css/Quote.module.scss';
 
 type Props = {
   children: React.ReactNode
 }
 function Quote({ children }: Props) {
   return (
-    <main className="quote" aria-label="Joke">
+    <main className={style.quote} aria-label="Joke">
       {children}
     </main>
   );

@@ -1,5 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react';
 
+import style from '../Css/JokesCounter.module.scss';
+
 type Props = {
     value: string,
     onChange: Dispatch<SetStateAction<string>>
@@ -7,7 +9,7 @@ type Props = {
 }
 function JokesCounter({ value, onChange, error }: Props) {
   return (
-    <div className={`jokes-counter ${(error) ? 'error' : ''}`}>
+    <div className={`${style['jokes-counter']} ${(error) ? style.error : ''}`}>
       <button
         type="button"
         aria-label="Decrease number of jokes to download"

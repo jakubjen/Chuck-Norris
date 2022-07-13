@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import firstLetterUppercase from '../Lib/firstLetterUppercase';
-import '../Css/CustomSelect.css';
+import style from '../Css/CustomSelect.module.scss';
 
 type Props = {
     value: string,
@@ -13,7 +13,7 @@ function Select({
 }: Props) {
   const [open, setOpen] = useState(false);
   return (
-    <div className={`custom-select ${(open) ? 'open' : ''} ${(value !== '') ? 'select' : ''}`}>
+    <div className={`${style['custom-select']} ${(open) ? style.open : ''} ${(value !== '') ? style.select : ''}`}>
       <fieldset>
         <legend>
           <button
@@ -26,7 +26,7 @@ function Select({
             {(value !== '' && !open) ? firstLetterUppercase(value) : placeholder}
           </button>
         </legend>
-        <div className="options">
+        <div className={style.options}>
           {options.map((option) => (
             <label
               key={option}
@@ -45,7 +45,7 @@ function Select({
                   setOpen(false);
                 }}
               />
-              <span className="text">{firstLetterUppercase(option)}</span>
+              <span className={style.text}>{firstLetterUppercase(option)}</span>
             </label>
           ))}
         </div>

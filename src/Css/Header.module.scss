@@ -1,0 +1,12 @@
+header {
+    text-align: center;
+    img {
+        &.chuck-image {
+            width: 100%;
+        }
+        &.man {
+            height: 130px;
+            max-width: 100%;
+          }
+    }
+}

@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react';
+import style from '../Css/NameInput.module.scss';
 
 type Props = {
     value: string,
@@ -7,7 +8,7 @@ type Props = {
 
 function NameInput({ value, setName }:Props) {
   return (
-    <div className="text-input-wrapper">
+    <div className={style['text-input-wrapper']}>
       <label htmlFor="name">
         <input
           type="text"
@@ -16,9 +17,9 @@ function NameInput({ value, setName }:Props) {
           onChange={(e) => {
             setName(e.target.value);
           }}
-          className={(value !== '') ? 'not-empty' : ''}
+          className={(value !== '') ? style['not-empty'] : ''}
         />
-        <span className="label">Impersonate Chuck Norris</span>
+        <span className={style.label}>Impersonate Chuck Norris</span>
       </label>
     </div>
   );
