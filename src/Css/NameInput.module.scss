@@ -11,6 +11,7 @@
         transform: translateY(-50%);
         font-size: .8em;
         transition: top ease-in-out 0.2s;
+        cursor: text;
       }
 
       & input:focus ~ .label, & input.not-empty  ~ .label {
