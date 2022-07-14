@@ -10,17 +10,16 @@ button.bt {
     border-radius: Variables.$border-radius;
     border: none;
     cursor: pointer;
-  }
-  
-  button.bt.draw {
-    margin-top: Variables.$margin-top;
-  }
-  
-  button.bt.save-jokes {
-    font-weight: 400;
-  }
-  button.bt:disabled {
-    background: Variables.$gray-2;
-    color: Variables.$dark;
-  }
-  
+
+    &.draw {
+      margin-top: Variables.$margin-top;
+    }
+    
+    &.save-jokes {
+      font-weight: 400;
+    }
+    &:disabled {
+      background: Variables.$gray-2;
+      color: Variables.$dark;
+    }    
+}  

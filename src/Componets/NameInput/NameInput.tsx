@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import style from '../Css/NameInput.module.scss';
+import style from './NameInput.module.scss';
 
 type Props = {
     value: string,

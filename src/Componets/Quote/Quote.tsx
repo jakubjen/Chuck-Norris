@@ -1,5 +1,5 @@
 import React from 'react';
-import style from '../Css/Quote.module.scss';
+import style from './Quote.module.scss';
 
 type Props = {
   children: React.ReactNode
