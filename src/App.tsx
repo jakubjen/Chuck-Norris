@@ -17,7 +17,7 @@ function App() {
   const [isPending, setIsPending] = useState<boolean>(true);
   const [error, setError] = useState<any>(null);
   const [name, setName] = useState('');
-  const [category, setCategory] = useState('');
+  const [categories, setCategories] = useState<string[]>([]);
   const [numberOfJokes, setNumberOfJokes] = useState('1');
   const [numberOfJokesError, setNumberOfJokesError] = useState(false);
   const [downloadError, setDownloadError] = useState(null);
@@ -54,7 +54,7 @@ function App() {
       urlParameters.push({ name: 'firstName', value: name });
       urlParameters.push({ name: 'lastName', value: '' });
     }
-    if (category !== '') urlParameters.push({ name: 'limitTo', value: category });
+    // if (categories.length !== 0) urlParameters.push({ name: 'limitTo', value: categories });
     requestUrl = parseUrlParameters(requestUrl, urlParameters);
     fetchJoke(requestUrl);
   };
@@ -88,8 +88,9 @@ function App() {
           {error && 'Chuck is on vacation. Try again later.'}
         </Quote>
         <Select
-          value={category}
-          onChange={setCategory}
+          value={categories.reduce(((text, category) => text + category), '')}
+          onChange={setCategories}
+          selected={categories}
           options={['explicit', 'nerdy']}
           placeholder="Category"
         />

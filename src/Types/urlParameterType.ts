@@ -1,5 +1,5 @@
 type urlParameterType = {
     name: string,
-    value: string
+    value: string | string;
 }
 export default urlParameterType;

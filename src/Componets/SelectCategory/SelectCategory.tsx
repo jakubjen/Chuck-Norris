@@ -4,14 +4,22 @@ import style from './SelectCategory.module.scss';
 
 type Props = {
     value: string,
-    onChange: Dispatch<SetStateAction<string>>,
+    onChange: Dispatch<SetStateAction<string[]>>,
+    selected: string[];
     options: string[],
     placeholder: string
 }
 function Select({
-  value, onChange, options, placeholder,
+  value, onChange, options, placeholder, selected,
 }: Props) {
   const [open, setOpen] = useState(false);
+  const toggleSelect = (option: string) => {
+    if (selected.includes(option)) {
+      onChange(selected.filter((element) => element !== option));
+    } else {
+      onChange([...selected, option]);
+    }
+  };
   return (
     <div className={`${style['custom-select']} ${(open) ? style.open : ''} ${(value !== '') ? style.select : ''}`}>
       <fieldset>
@@ -19,7 +27,6 @@ function Select({
           <button
             type="button"
             onClick={() => {
-              if (open) onChange('');
               setOpen(!open);
             }}
           >
@@ -33,19 +40,14 @@ function Select({
               htmlFor={`${option}id`}
             >
               <input
-                type="radio"
+                type="checkbox"
                 id={`${option}id`}
                 value={option}
                 onChange={() => {
-                  onChange(option);
-                  setOpen(false);
-                }}
-                onClick={() => {
-                  onChange(option);
-                  setOpen(false);
+                  toggleSelect(option);
                 }}
               />
-              <span className={style.text}>{firstLetterUppercase(option)}</span>
+              <span className={`${style.text} ${selected.includes(option) ? style.selected : ''}`}>{firstLetterUppercase(option)}</span>
             </label>
           ))}
         </div>
