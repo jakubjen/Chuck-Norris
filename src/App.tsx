@@ -26,7 +26,7 @@ function App() {
       setJoke(undefined);
       setError(null);
       setIsPending(true);
-      const jokeFromApi = await fetchJoke(name, category);
+      const jokeFromApi = await fetchJoke(name, categories);
       setJoke(jokeFromApi);
       setIsPending(false);
     } catch {
@@ -73,7 +73,7 @@ function App() {
           {error && 'Chuck is on vacation. Try again later.'}
         </Quote>
         <Select
-          value={categories.reduce(((text, category) => text + category), '')}
+          value={categories.reduce(((text, category) => `${text} ${category}`), '')}
           onChange={setCategories}
           selected={categories}
           options={['explicit', 'nerdy']}
