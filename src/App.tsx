@@ -6,9 +6,8 @@ import JokesCounter from './Componets/JokeCounter/JokesCounter';
 import NameInput from './Componets/NameInput/NameInput';
 import jokeType from './Types/jokeType';
 import Select from './Componets/SelectCategory/SelectCategory';
-import urlParameterType from './Types/urlParameterType';
-import parseUrlParameters from './Lib/parseUrlParameters';
 import style from './Css/Index.module.scss';
+import fetchJoke from './Lib/Api/fetchJoke';
 
 function App() {
   const baseUrl = 'http://api.icndb.com/jokes';
@@ -22,23 +21,21 @@ function App() {
   const [numberOfJokesError, setNumberOfJokesError] = useState(false);
   const [downloadError, setDownloadError] = useState(null);
 
-  const fetchJoke = (requestUrl: string) => {
-    fetch(requestUrl).then((response) => {
-      setIsPending(true);
+  const getJoke = async () => {
+    try {
       setJoke(undefined);
-      if (!response.ok) throw new Error('Data not fetch.');
-      return response.json();
-    }).then((data) => {
       setError(null);
+      setIsPending(true);
+      const jokeFromApi = await fetchJoke(name, category);
+      setJoke(jokeFromApi);
       setIsPending(false);
-      setJoke(data.value);
-    }).catch((e) => {
-      setIsPending(false);
-      setError(e);
-    });
+    } catch {
+      setError('Data not fetch');
+    }
   };
+
   useEffect(() => {
-    fetchJoke(url);
+    getJoke();
   }, [url]);
 
   useEffect(() => {
@@ -46,18 +43,6 @@ function App() {
         || Number(numberOfJokes) < 1) return setNumberOfJokesError(true);
     return setNumberOfJokesError(false);
   }, [numberOfJokes]);
-
-  const drawJoke = () => {
-    let requestUrl = `${baseUrl}/random`;
-    const urlParameters: urlParameterType[] = [];
-    if (name !== '') {
-      urlParameters.push({ name: 'firstName', value: name });
-      urlParameters.push({ name: 'lastName', value: '' });
-    }
-    // if (categories.length !== 0) urlParameters.push({ name: 'limitTo', value: categories });
-    requestUrl = parseUrlParameters(requestUrl, urlParameters);
-    fetchJoke(requestUrl);
-  };
 
   const downloadJokes = () => {
     fetch(`${baseUrl}/random/${numberOfJokes}`)
@@ -98,7 +83,7 @@ function App() {
         <button
           type="button"
           className={`${style.bt} ${style.draw}`}
-          onClick={drawJoke}
+          onClick={getJoke}
         >
           Draw a random
           {' '}
