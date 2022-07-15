@@ -42,6 +42,7 @@
         border-radius: Variables.$border-radius;
         text-align: left;
         cursor: pointer;
+        font-size: 0.8em;
     }
 
     fieldset .options {
@@ -57,8 +58,7 @@
         border-top: none;
         padding: 10px 0;
         visibility: hidden;
-        font-size: .8em;
-    
+        font-size: .8rem;
     }    
     
     fieldset label .text {
@@ -68,6 +68,7 @@
         border-radius: Variables.$border-radius;
         color: Variables.$dark;
         cursor: pointer;
+        font-size: 0.8rem;
     }
     
     &.open, &, fieldset label .text:hover, .custom-select fieldset label input[type=radio]:focus ~ .text  {
