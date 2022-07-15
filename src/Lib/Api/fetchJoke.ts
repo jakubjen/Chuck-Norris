@@ -8,8 +8,8 @@ const fetchJoke = async (name: string, category: string[]) => {
     url += `?firstName=${name}&lastName=&limitTo=${category}`;
   } else if (name) {
     url += `?firstName=${name}&lastName=`;
-  } else if (category) {
-    url += `?limitTo=${category.length}`;
+  } else if (category.length) {
+    url += `?limitTo=${category}`;
   }
   const data = await fetchData(url);
 
