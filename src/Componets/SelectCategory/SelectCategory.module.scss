@@ -5,6 +5,11 @@
     border-radius: Variables.$border-radius;
     position: relative;
     background: Variables.$white;
+    transition: border-color .2s ease-in;
+
+    &:hover {
+        border-color: Variables.$dark;
+    }
 
     &.select {
         border-color: Variables.$dark;
@@ -41,6 +46,10 @@
             border-radius: Variables.$border-radius;
             text-align: left;
             cursor: pointer;
+
+            &:hover {
+                color: Variables.$dark;
+            }
         }
 
         .options {
@@ -51,7 +60,7 @@
             width: 100%;
             background: Variables.$white;
             border-radius: 0  0 Variables.$border-radius Variables.$border-radius;
-            border: solid 2px Variables.$gray-1;
+            border: solid 2px Variables.$dark;
             box-sizing: content-box;
             border-top: none;
             padding: 10px 0;

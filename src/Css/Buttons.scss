@@ -10,9 +10,14 @@ button.bt {
     border-radius: Variables.$border-radius;
     border: none;
     cursor: pointer;
+    transition: opacity .2s ease-in;
 
     &.draw {
       margin-top: Variables.$margin-top;
+    }
+
+    &:hover {
+      opacity: .8;
     }
 
     &:disabled {
