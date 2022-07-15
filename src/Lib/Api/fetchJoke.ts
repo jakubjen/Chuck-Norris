@@ -2,7 +2,7 @@ import jokeType from '../../Types/jokeType';
 import baseUrl from './BaseUrl';
 import fetchData from './fetchData';
 
-const fetchJoke = async (name: string, category: string) => {
+const fetchJoke = async (name: string, category: string[]) => {
   let url = `${baseUrl}/random`;
   if (name && category) {
     url += `?firstName=${name}&lastName=&limitTo=${category}`;
