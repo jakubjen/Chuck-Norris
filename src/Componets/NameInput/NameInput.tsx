@@ -1,12 +1,13 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import style from './NameInput.module.scss';
 
 type Props = {
-    value: string,
-    setName: Dispatch<SetStateAction<string>>
+    setFirstName: Dispatch<SetStateAction<string>>
+    setLastName: Dispatch<SetStateAction<string>>
 }
 
-function NameInput({ value, setName }:Props) {
+function NameInput({ setFirstName, setLastName }:Props) {
+  const [value, setValue] = useState('');
   return (
     <div className={style['text-input-wrapper']}>
       <label htmlFor="name">
@@ -15,7 +16,17 @@ function NameInput({ value, setName }:Props) {
           id="name"
           value={value}
           onChange={(e) => {
-            setName(e.target.value);
+            setValue(e.target.value);
+            const newValue = e.target.value;
+            const splitNames = newValue.trim().split(' ');
+            if (splitNames.length === 0) {
+              setFirstName('');
+              setLastName('');
+              return;
+            }
+            setFirstName(splitNames[0]);
+            splitNames.shift();
+            setLastName(splitNames.join(' '));
           }}
           className={(value !== '') ? style['not-empty'] : ''}
         />
