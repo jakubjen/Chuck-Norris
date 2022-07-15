@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './Css/App.css';
-import Header from './Componets/Header';
-import Quote from './Componets/Quote';
-import JokesCounter from './Componets/JokesCounter';
-import NameInput from './Componets/NameInput';
+import Header from './Componets/Header/Header';
+import Quote from './Componets/Quote/Quote';
+import JokesCounter from './Componets/JokeCounter/JokesCounter';
+import NameInput from './Componets/NameInput/NameInput';
 import jokeType from './Types/jokeType';
-import Select from './Componets/SelectCategory';
+import Select from './Componets/SelectCategory/SelectCategory';
 import style from './Css/Index.module.scss';
 import fetchJoke from './Lib/Api/fetchJoke';
 

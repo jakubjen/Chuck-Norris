@@ -1,5 +1,5 @@
 import React from 'react';
-import style from '../Css/Header.module.scss';
+import style from './Header.module.scss';
 
 type Props = {
   chuckFace:boolean

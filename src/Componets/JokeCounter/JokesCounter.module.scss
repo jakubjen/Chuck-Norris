@@ -1,5 +1,5 @@
-@use 'Variables';
-@use 'BreakPoint';
+@use '../../Css/Variables';
+@use '../../Css/BreakPoint';
 
 .jokes-counter {
     display: flex;
@@ -24,6 +24,7 @@
       border-radius: 50%;
       background: transparent;
       border: solid 2px Variables.$dark;
+      cursor: pointer;
     }
     
     input[type=number] {

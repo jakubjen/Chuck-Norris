@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
-import firstLetterUppercase from '../Lib/firstLetterUppercase';
-import style from '../Css/CustomSelect.module.scss';
+import firstLetterUppercase from '../../Lib/firstLetterUppercase';
+import style from './SelectCategory.module.scss';
 
 type Props = {
     value: string,
