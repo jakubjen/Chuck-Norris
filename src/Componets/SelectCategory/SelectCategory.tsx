@@ -10,18 +10,22 @@ type Props = {
     placeholder: string
 }
 function Select({
-  value, onChange, options, placeholder, selected,
+  value: valueProps,
+  onChange: onChangeProps,
+  options: optionsProps,
+  placeholder: placeholderProps,
+  selected: selectedProps,
 }: Props) {
   const [open, setOpen] = useState(false);
   const toggleSelect = (option: string) => {
-    if (selected.includes(option)) {
-      onChange(selected.filter((element) => element !== option));
+    if (selectedProps.includes(option)) {
+      onChangeProps(selectedProps.filter((element) => element !== option));
     } else {
-      onChange([...selected, option]);
+      onChangeProps([...selectedProps, option]);
     }
   };
   return (
-    <div className={`${style['custom-select']} ${(open) ? style.open : ''} ${(value !== '') ? style.select : ''}`}>
+    <div className={`${style['custom-select']} ${(open) ? style.open : ''} ${(valueProps !== '') ? style.select : ''}`}>
       <fieldset>
         <legend>
           <button
@@ -30,11 +34,11 @@ function Select({
               setOpen(!open);
             }}
           >
-            {(value !== '' && !open) ? firstLetterUppercase(value) : placeholder}
+            {(valueProps !== '' && !open) ? firstLetterUppercase(valueProps) : placeholderProps}
           </button>
         </legend>
         <div className={style.options}>
-          {options.map((option) => (
+          {optionsProps.map((option) => (
             <label
               key={option}
               htmlFor={`${option}id`}
@@ -47,7 +51,7 @@ function Select({
                   toggleSelect(option);
                 }}
               />
-              <span className={`${style.text} ${selected.includes(option) ? style.selected : ''}`}>{firstLetterUppercase(option)}</span>
+              <span className={`${style.text} ${selectedProps.includes(option) ? style.selected : ''}`}>{firstLetterUppercase(option)}</span>
             </label>
           ))}
         </div>

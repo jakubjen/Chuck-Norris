@@ -4,11 +4,11 @@ import fetchData from './fetchData';
 
 const fetchJoke = async (name: string, category: string[]) => {
   let url = `${baseUrl}/random`;
-  if (name !== '' && category.length !== 0) {
+  if (name !== '' && !category.length) {
     url += `?firstName=${name}&lastName=&limitTo=[${category}]`;
-  } else if (name !== '') {
+  } else if (name) {
     url += `?firstName=${name}&lastName=`;
-  } else if (category.length !== 0) {
+  } else if (!category.length) {
     url += `?limitTo=[${category}]`;
   }
   const data = await fetchData(url);
