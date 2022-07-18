@@ -1,4 +1,7 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, {
+  Dispatch, SetStateAction, useState,
+} from 'react';
+import { useTranslation } from 'react-i18next';
 import style from './NameInput.module.scss';
 
 type Props = {
@@ -8,6 +11,7 @@ type Props = {
 
 function NameInput({ setFirstName, setLastName }:Props) {
   const [value, setValue] = useState('');
+  const { t } = useTranslation();
   return (
     <div className={style['text-input-wrapper']}>
       <label htmlFor="name">
@@ -30,7 +34,7 @@ function NameInput({ setFirstName, setLastName }:Props) {
           }}
           className={(value !== '') ? style['not-empty'] : ''}
         />
-        <span className={style.label}>Impersonate Chuck Norris</span>
+        <span className={style.label}>{t('ImpersonateChuckNorris')}</span>
       </label>
     </div>
   );
