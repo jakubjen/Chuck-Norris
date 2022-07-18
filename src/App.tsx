@@ -19,7 +19,6 @@ function App() {
   const [lastName, setLastName] = useState('');
   const [categories, setCategories] = useState<string[]>([]);
   const [numberOfJokes, setNumberOfJokes] = useState('1');
-  const [numberOfJokesError, setNumberOfJokesError] = useState(false);
   const [downloadError, setDownloadError] = useState(null);
 
   const getJoke = async () => {
@@ -39,11 +38,10 @@ function App() {
     getJoke();
   }, [url]);
 
-  useEffect(() => {
-    if (Number(numberOfJokes) > 100
-        || Number(numberOfJokes) < 1) return setNumberOfJokesError(true);
-    return setNumberOfJokesError(false);
-  }, [numberOfJokes]);
+  const numberOfJokesError = () => {
+    if (Number(numberOfJokes) > 100 || Number(numberOfJokes) < 1) return true;
+    return false;
+  };
 
   const downloadJokes = () => {
     fetch(`${baseUrl}/random/${numberOfJokes}`)
@@ -98,14 +96,14 @@ function App() {
         <div className={style['bottom-controls']}>
           <JokesCounter
             value={numberOfJokes}
-            error={numberOfJokesError}
+            error={numberOfJokesError()}
             onChange={setNumberOfJokes}
           />
           <div className={style['button-wrapper']}>
             <button
               type="button"
               className={`${style.bt} ${style['save-jokes']}`}
-              disabled={numberOfJokesError}
+              disabled={numberOfJokesError()}
               onClick={() => {
                 downloadJokes();
               }}
@@ -114,7 +112,7 @@ function App() {
             </button>
           </div>
         </div>
-        { (numberOfJokesError) && (
+        { (numberOfJokesError()) && (
         <span className={style.errorJokeCounterText}>
           You can pick a number from 1 to 100.
         </span>
