@@ -15,7 +15,8 @@ function App() {
   const [joke, setJoke] = useState<jokeType>();
   const [isPending, setIsPending] = useState<boolean>(true);
   const [error, setError] = useState<any>(null);
-  const [name, setName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [categories, setCategories] = useState<string[]>([]);
   const [numberOfJokes, setNumberOfJokes] = useState('1');
   const [numberOfJokesError, setNumberOfJokesError] = useState(false);
@@ -26,7 +27,7 @@ function App() {
       setJoke(undefined);
       setError(null);
       setIsPending(true);
-      const jokeFromApi = await fetchJoke(name, categories);
+      const jokeFromApi = await fetchJoke(firstName, lastName, category);
       setJoke(jokeFromApi);
       setIsPending(false);
     } catch {
@@ -66,7 +67,7 @@ function App() {
   return (
     <div className={style.root}>
       <div className={style.container}>
-        <Header chuckFace={name === ''} />
+        <Header chuckFace={firstName === ''} />
         <Quote>
           {joke && `"${joke.joke}"`}
           {isPending && 'Loading ...'}
@@ -79,7 +80,10 @@ function App() {
           options={['explicit', 'nerdy']}
           placeholder="Category"
         />
-        <NameInput value={name} setName={setName} />
+        <NameInput
+          setFirstName={setFirstName}
+          setLastName={setLastName}
+        />
         <button
           type="button"
           className={`${style.bt} ${style.draw}`}
@@ -87,7 +91,7 @@ function App() {
         >
           Draw a random
           {' '}
-          {(name !== '' ? name : 'Chuck Norris')}
+          {(firstName ? `${firstName} ${lastName}` : 'Chuck Norris')}
           {' '}
           Joke
         </button>
