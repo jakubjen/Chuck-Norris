@@ -15,10 +15,10 @@ function App() {
   const [joke, setJoke] = useState<jokeType>();
   const [isPending, setIsPending] = useState<boolean>(true);
   const [error, setError] = useState<any>(null);
-  const [name, setName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [categories, setCategories] = useState<string[]>([]);
   const [numberOfJokes, setNumberOfJokes] = useState('1');
-  const [numberOfJokesError, setNumberOfJokesError] = useState(false);
   const [downloadError, setDownloadError] = useState(null);
 
   const getJoke = async () => {
@@ -26,7 +26,7 @@ function App() {
       setJoke(undefined);
       setError(null);
       setIsPending(true);
-      const jokeFromApi = await fetchJoke(name, categories);
+      const jokeFromApi = await fetchJoke(firstName, lastName, category);
       setJoke(jokeFromApi);
       setIsPending(false);
     } catch {
@@ -38,11 +38,10 @@ function App() {
     getJoke();
   }, [url]);
 
-  useEffect(() => {
-    if (Number(numberOfJokes) > 100
-        || Number(numberOfJokes) < 1) return setNumberOfJokesError(true);
-    return setNumberOfJokesError(false);
-  }, [numberOfJokes]);
+  const numberOfJokesError = () => {
+    if (Number(numberOfJokes) > 100 || Number(numberOfJokes) < 1) return true;
+    return false;
+  };
 
   const downloadJokes = () => {
     fetch(`${baseUrl}/random/${numberOfJokes}`)
@@ -66,7 +65,7 @@ function App() {
   return (
     <div className={style.root}>
       <div className={style.container}>
-        <Header chuckFace={name === ''} />
+        <Header chuckFace={firstName === ''} />
         <Quote>
           {joke && `"${joke.joke}"`}
           {isPending && 'Loading ...'}
@@ -79,7 +78,10 @@ function App() {
           options={['explicit', 'nerdy']}
           placeholder="Category"
         />
-        <NameInput value={name} setName={setName} />
+        <NameInput
+          setFirstName={setFirstName}
+          setLastName={setLastName}
+        />
         <button
           type="button"
           className={`${style.bt} ${style.draw}`}
@@ -87,21 +89,21 @@ function App() {
         >
           Draw a random
           {' '}
-          {(name !== '' ? name : 'Chuck Norris')}
+          {(firstName ? `${firstName} ${lastName}` : 'Chuck Norris')}
           {' '}
           Joke
         </button>
         <div className={style['bottom-controls']}>
           <JokesCounter
             value={numberOfJokes}
-            error={numberOfJokesError}
+            error={numberOfJokesError()}
             onChange={setNumberOfJokes}
           />
           <div className={style['button-wrapper']}>
             <button
               type="button"
               className={`${style.bt} ${style['save-jokes']}`}
-              disabled={numberOfJokesError}
+              disabled={numberOfJokesError()}
               onClick={() => {
                 downloadJokes();
               }}
@@ -110,7 +112,7 @@ function App() {
             </button>
           </div>
         </div>
-        { (numberOfJokesError) && (
+        { (numberOfJokesError()) && (
         <span className={style.errorJokeCounterText}>
           You can pick a number from 1 to 100.
         </span>
