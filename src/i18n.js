@@ -15,6 +15,8 @@ const resources = {
       DrawRandomJoke: 'Draw a radom {{name}} joke.',
       ImpersonateChuckNorris: 'Impersonate Chuck Norris',
       Categories: 'Categories',
+      HttpError: 'Chuck is on vacation. Try again later',
+      loading: 'Loading',
     },
   },
 };

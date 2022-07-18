@@ -69,8 +69,8 @@ function App() {
         <Header chuckFace={firstName === ''} />
         <Quote>
           {joke && `"${joke.joke}"`}
-          {isPending && 'Loading ...'}
-          {error && 'Chuck is on vacation. Try again later.'}
+          {isPending && t('loading')}
+          {error && t('HttpError')}
         </Quote>
         <Select
           value={categories.reduce(((text, category) => `${text} ${category}`), '')}
