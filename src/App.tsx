@@ -26,7 +26,7 @@ function App() {
       setJoke(undefined);
       setError(null);
       setIsPending(true);
-      const jokeFromApi = await fetchJoke(firstName, lastName, category);
+      const jokeFromApi = await fetchJoke(firstName, lastName, categories);
       setJoke(jokeFromApi);
       setIsPending(false);
     } catch {

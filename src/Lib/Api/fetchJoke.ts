@@ -2,14 +2,14 @@ import jokeType from '../../Types/jokeType';
 import baseUrl from './BaseUrl';
 import fetchData from './fetchData';
 
-const fetchJoke = async (name: string, category: string[]) => {
+const fetchJoke = async (firstName: string, lastName: string, category: string[]) => {
   let url = `${baseUrl}/random`;
-  if (name && category) {
-    url += `?firstName=${name}&lastName=&limitTo=${category}`;
-  } else if (name) {
-    url += `?firstName=${name}&lastName=`;
+  if (firstName && category) {
+    url += `?firstName=${firstName}&lastName=&${firstName}limitTo=[${category}]`;
+  } else if (firstName) {
+    url += `?firstName=${firstName}&lastName=${firstName}`;
   } else if (category.length) {
-    url += `?limitTo=${category}`;
+    url += `?limitTo=[${category}]`;
   }
   const data = await fetchData(url);
 
