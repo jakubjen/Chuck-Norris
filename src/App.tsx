@@ -90,7 +90,7 @@ function App() {
         >
           Draw a random
           {' '}
-          {(firstName !== '' ? firstName + lastName : 'Chuck Norris')}
+          {(firstName ? `${firstName} ${lastName}` : 'Chuck Norris')}
           {' '}
           Joke
         </button>
