@@ -4,8 +4,8 @@ import fetchData from './fetchData';
 
 const fetchJoke = async (firstName: string, lastName: string, category: string[]) => {
   let url = `${baseUrl}/random`;
-  if (firstName && category) {
-    url += `?firstName=${firstName}&lastName=&${lastName}limitTo=[${category}]`;
+  if (firstName && category.length) {
+    url += `?firstName=${firstName}&lastName=${lastName}&limitTo=[${category}]`;
   } else if (firstName) {
     url += `?firstName=${firstName}&lastName=${lastName}`;
   } else if (category.length) {
