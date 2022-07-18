@@ -111,19 +111,20 @@ function App() {
               Save jokes
             </button>
           </div>
+          <div className={style.errors}>
+            { (numberOfJokesError()) && (
+            <span className={style.errorJokeCounterText}>
+              You can pick a number from 1 to 100.
+            </span>
+            )}
+            { (downloadError) && (
+            <span className={style.errorJokeCounterText}>
+              Something goes wrong. Try again later;
+            </span>
+            )}
+          </div>
         </div>
-        { (numberOfJokesError()) && (
-        <span className={style.errorJokeCounterText}>
-          You can pick a number from 1 to 100.
-        </span>
-        )}
-        { (downloadError) && (
-        <span className={style.errorJokeCounterText}>
-          Something goes wrong. Try again later;
-        </span>
-        )}
       </div>
-
     </div>
   );
 }
