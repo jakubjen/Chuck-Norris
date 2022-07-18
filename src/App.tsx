@@ -17,7 +17,7 @@ function App() {
   const [error, setError] = useState<any>(null);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [category, setCategory] = useState('');
+  const [categories, setCategories] = useState<string[]>([]);
   const [numberOfJokes, setNumberOfJokes] = useState('1');
   const [numberOfJokesError, setNumberOfJokesError] = useState(false);
   const [downloadError, setDownloadError] = useState(null);
@@ -74,8 +74,9 @@ function App() {
           {error && 'Chuck is on vacation. Try again later.'}
         </Quote>
         <Select
-          value={category}
-          onChange={setCategory}
+          value={categories.reduce(((text, category) => `${text} ${category}`), '')}
+          onChange={setCategories}
+          selected={categories}
           options={['explicit', 'nerdy']}
           placeholder="Category"
         />

@@ -5,6 +5,11 @@
     border-radius: Variables.$border-radius;
     position: relative;
     background: Variables.$white;
+    transition: border-color .2s ease-in;
+
+    &:hover {
+        border-color: Variables.$dark;
+    }
 
     &.select {
         border-color: Variables.$dark;
@@ -26,56 +31,65 @@
 
     fieldset {
         border: none;
-    }
+        
+        legend {
+            border: none;
+            width: 100%;
+        }
 
-    fieldset legend {
-        border: none;
-        width: 100%;
-    }
+        button {
+            padding: 22px 20px;
+            width: 100%;
+            border: none;
+            color: Variables.$gray-1;
+            background: Variables.$white;
+            border-radius: Variables.$border-radius;
+            text-align: left;
+            cursor: pointer;
 
-    fieldset button {
-        padding: 22px 20px;
-        width: 100%;
-        border: none;
-        color: Variables.$gray-1;
-        background: Variables.$white;
-        border-radius: Variables.$border-radius;
-        text-align: left;
-        cursor: pointer;
-        font-size: 0.8em;
-    }
+            &:hover {
+                color: Variables.$dark;
+            }
+        }
 
-    fieldset .options {
-        position: absolute;
-        z-index: 100;
-        top: 50px;
-        left: -2px;
-        width: 100%;
-        background: Variables.$white;
-        border-radius: 0  0 Variables.$border-radius Variables.$border-radius;
-        border: solid 2px Variables.$gray-1;
-        box-sizing: content-box;
-        border-top: none;
-        padding: 10px 0;
-        visibility: hidden;
-        font-size: .8rem;
-    }    
+        .options {
+            position: absolute;
+            z-index: 100;
+            top: 50px;
+            left: -2px;
+            width: 100%;
+            background: Variables.$white;
+            border-radius: 0  0 Variables.$border-radius Variables.$border-radius;
+            border: solid 2px Variables.$dark;
+            box-sizing: content-box;
+            border-top: none;
+            padding: 10px 0;
+            visibility: hidden;
+            font-size: .8em;
+        } 
+        
+        label .text {
+            display: block;
+            padding: 22px 25px;
+            margin: 5px 10px;
+            border-radius: Variables.$border-radius;
+            color: Variables.$dark;
+            cursor: pointer;
+        }
+    }
     
-    fieldset label .text {
-        display: block;
-        padding: 22px 25px;
-        margin: 0 10px;
-        border-radius: Variables.$border-radius;
-        color: Variables.$dark;
-        cursor: pointer;
-        font-size: 0.8rem;
-    }
     
-    &.open, &, fieldset label .text:hover, .custom-select fieldset label input[type=radio]:focus ~ .text  {
+    &.open, &, fieldset label .text:hover, & fieldset label input[type=checkbox]:focus-visible ~ .text  {
         color: Variables.$dark;
         background: Variables.$gray-1;
     }
-    fieldset label input[type=radio]{
+
+    & fieldset label .text.selected, & fieldset label .text.selected:hover, & fieldset label input[type=checkbox]:checked ~ .text.text.selected{
+        background: Variables.$dark;
+        color: Variables.$white;
+    }
+
+    fieldset label input[type=checkbox]{
         position: absolute;
         left: -9999999999999px;
     }

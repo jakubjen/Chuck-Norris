@@ -2,6 +2,13 @@
 .text-input-wrapper {
     position: relative;
     margin-top: Variables.$margin-top;
+    border: solid 2px Variables.$gray-1;
+    border-radius: Variables.$border-radius;
+    transition: border-color 0.2s ease-in;
+
+    &:hover {
+      border: solid 2px Variables.$dark;
+    }
 
     .label {
         position: absolute;
@@ -21,10 +28,15 @@
      & input {
         font-size: .9em;
         width: 100%;
-        border: solid 2px Variables.$gray-1;
-        color: Variables.$dark;
-        border-radius: Variables.$border-radius;
         padding: 21px 20px;
+        color: Variables.$dark;
+        border: none;
+        border-radius: Variables.$border-radius;
+        transition: color 0.2s ease-in;
+      }
+
+      &:hover .label {
+        color: Variables.$dark;
       }
 
       & input:focus, & input.not-empty{
