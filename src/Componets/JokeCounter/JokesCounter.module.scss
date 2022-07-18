@@ -16,7 +16,7 @@
       }
     }
 
-    button{
+    button {
       color: Variables.$dark;
       font-size: 1.3rem;
       width: 30px;
@@ -25,6 +25,11 @@
       background: transparent;
       border: solid 2px Variables.$dark;
       cursor: pointer;
+      transition: opacity .2 ease-in;
+
+      &:hover {
+        opacity: .6;
+      }
     }
     
     input[type=number] {
