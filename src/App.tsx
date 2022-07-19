@@ -9,6 +9,7 @@ import jokeType from './Types/jokeType';
 import Select from './Componets/SelectCategory/SelectCategory';
 import style from './Css/Index.module.scss';
 import fetchJoke from './Lib/Api/fetchJoke';
+import Spinner from './Componets/Spinner/Spinner';
 
 function App() {
   const baseUrl = 'http://api.icndb.com/jokes';
@@ -69,7 +70,12 @@ function App() {
         <Header chuckFace={firstName === ''} />
         <Quote>
           {joke && `"${joke.joke}"`}
-          {isPending && t('loading')}
+          {isPending && !error && (
+          <>
+            Loading ...
+            <Spinner />
+          </>
+          )}
           {error && t('HttpError')}
         </Quote>
         <Select
@@ -108,19 +114,20 @@ function App() {
               {t('SaveJoke', { count: Number(numberOfJokes) })}
             </button>
           </div>
+          <div className={style.errors}>
+            { (numberOfJokesError()) && (
+            <span className={style.errorJokeCounterText}>
+              {t('JokeCounterRangeError')}
+            </span>
+            )}
+            { (downloadError) && (
+            <span className={style.errorJokeCounterText}>
+              {t('DownloadError')}
+            </span>
+           )}
+          </div>
         </div>
-        { (numberOfJokesError()) && (
-        <span className={style.errorJokeCounterText}>
-          {t('JokeCounterRangeError')}
-        </span>
-        )}
-        { (downloadError) && (
-        <span className={style.errorJokeCounterText}>
-          {t('DownloadError')}
-        </span>
-        )}
       </div>
-
     </div>
   );
 }
