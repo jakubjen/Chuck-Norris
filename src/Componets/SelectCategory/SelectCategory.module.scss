@@ -24,6 +24,7 @@
     }
 
     &.open { 
+        border-color: Variables.$dark;
         fieldset .options {
             visibility: visible;
         }
