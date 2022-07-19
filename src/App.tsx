@@ -8,6 +8,7 @@ import jokeType from './Types/jokeType';
 import Select from './Componets/SelectCategory/SelectCategory';
 import style from './Css/Index.module.scss';
 import fetchJoke from './Lib/Api/fetchJoke';
+import Spinner from './Componets/Spinner/Spinner';
 
 function App() {
   const baseUrl = 'http://api.icndb.com/jokes';
@@ -68,7 +69,12 @@ function App() {
         <Header chuckFace={firstName === ''} />
         <Quote>
           {joke && `"${joke.joke}"`}
-          {isPending && 'Loading ...'}
+          {isPending && !error && (
+          <>
+            Loading ...
+            <Spinner />
+          </>
+          )}
           {error && 'Chuck is on vacation. Try again later.'}
         </Quote>
         <Select
