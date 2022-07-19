@@ -1,6 +1,6 @@
 @use 'Variables.scss';
 
-button.bt {
+button.bt, input[type=submit] {
     width: 100%;
     padding: 21px;
     background: Variables.$dark;

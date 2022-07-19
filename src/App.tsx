@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './Css/App.css';
+import {
+  useFormik,
+} from 'formik';
+import * as Yup from 'yup';
 import Header from './Componets/Header/Header';
 import Quote from './Componets/Quote/Quote';
 import JokesCounter from './Componets/JokeCounter/JokesCounter';
@@ -18,7 +22,6 @@ function App() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [categories, setCategories] = useState<string[]>([]);
-  const [numberOfJokes, setNumberOfJokes] = useState('1');
   const [downloadError, setDownloadError] = useState(null);
 
   const getJoke = async () => {
@@ -38,29 +41,41 @@ function App() {
     getJoke();
   }, [url]);
 
-  const numberOfJokesError = () => {
-    if (Number(numberOfJokes) > 100 || Number(numberOfJokes) < 1) return true;
-    return false;
+  type Values = {
+    counter: string;
+  }
+
+  const initialValues: Values = {
+    counter: '1',
   };
 
-  const downloadJokes = () => {
-    fetch(`${baseUrl}/random/${numberOfJokes}`)
-      .then((response) => {
-        setDownloadError(null);
-        if (!response.ok) throw new Error('Data not fetch.');
-        return response.json();
-      }).then((data) => {
-        const dataToFile = data.value.reduce((cos: string, jokeInLoop:jokeType) => `${cos}${jokeInLoop.joke}\n`, '');
-        const element = document.createElement('a');
-        element.setAttribute('href', `data:text/plain;charset=utf-8, ${encodeURIComponent(dataToFile)}`);
-        element.setAttribute('download', 'jokes.txt');
-        document.body.appendChild(element); // downloadJokes(numberOfJokes);
-        element.click();
-      }).catch((e) => {
-        setDownloadError(e);
-      });
-    return error;
-  };
+  const formikDownloadForm = useFormik({
+    initialValues,
+    onSubmit: (value: Values, actions) => {
+      fetch(`${baseUrl}/random/${value.counter}`)
+        .then((response) => {
+          setDownloadError(null);
+          if (!response.ok) throw new Error('Data not fetch.');
+          return response.json();
+        }).then((data) => {
+          const dataToFile = data.value.reduce((cos: string, jokeInLoop:jokeType) => `${cos}${jokeInLoop.joke}\n`, '');
+          const element = document.createElement('a');
+          element.setAttribute('href', `data:text/plain;charset=utf-8, ${encodeURIComponent(dataToFile)}`);
+          element.setAttribute('download', 'jokes.txt');
+          document.body.appendChild(element); // downloadJokes(numberOfJokes);
+          element.click();
+        }).catch((e) => {
+          setDownloadError(e);
+        });
+      actions.setSubmitting(false);
+    },
+    validationSchema: Yup.object({
+      counter: Yup.number()
+        .min(1, 'Too Short!')
+        .max(100, 'Too Long!')
+        .required('Required'),
+    }),
+  });
 
   return (
     <div className={style.root}>
@@ -87,43 +102,38 @@ function App() {
           className={`${style.bt} ${style.draw}`}
           onClick={getJoke}
         >
-          Draw a random
-          {' '}
-          {(firstName ? `${firstName} ${lastName}` : 'Chuck Norris')}
-          {' '}
-          Joke
-        </button>
-        <div className={style['bottom-controls']}>
-          <JokesCounter
-            value={numberOfJokes}
-            error={numberOfJokesError()}
-            onChange={setNumberOfJokes}
-          />
-          <div className={style['button-wrapper']}>
-            <button
-              type="button"
-              className={`${style.bt} ${style['save-jokes']}`}
-              disabled={numberOfJokesError()}
-              onClick={() => {
-                downloadJokes();
-              }}
-            >
-              Save jokes
-            </button>
-          </div>
-        </div>
-        { (numberOfJokesError()) && (
-        <span className={style.errorJokeCounterText}>
-          You can pick a number from 1 to 100.
-        </span>
-        )}
-        { (downloadError) && (
-        <span className={style.errorJokeCounterText}>
-          Something goes wrong. Try again later;
-        </span>
-        )}
-      </div>
+          {`Draw a random${(firstName ? `${firstName} ${lastName}` : 'Chuck Norris')} Joke`}
 
+        </button>
+        <form onSubmit={formikDownloadForm.handleSubmit}>
+          <div className={style['bottom-controls']}>
+            <JokesCounter
+              value={formikDownloadForm.values.counter}
+              setValue={(value: string):void => {
+                formikDownloadForm.setFieldValue('counter', value);
+              }}
+            />
+            <div className={style['button-wrapper']}>
+              <input
+                type="submit"
+                className={`${style.bt} ${style['save-jokes']}`}
+                disabled={!!formikDownloadForm.errors.counter}
+                value="Save jokes"
+              />
+            </div>
+          </div>
+          { (!!formikDownloadForm.errors.counter) && (
+          <span className={style.errorJokeCounterText}>
+            {formikDownloadForm.errors.counter}
+          </span>
+          )}
+          { (downloadError) && (
+          <span className={style.errorJokeCounterText}>
+            Something goes wrong. Try again later;
+          </span>
+          )}
+        </form>
+      </div>
     </div>
   );
 }
