@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Css/App.css';
+import { useTranslation } from 'react-i18next';
 import Header from './Componets/Header/Header';
 import Quote from './Componets/Quote/Quote';
 import JokesCounter from './Componets/JokeCounter/JokesCounter';
@@ -21,6 +22,7 @@ function App() {
   const [categories, setCategories] = useState<string[]>([]);
   const [numberOfJokes, setNumberOfJokes] = useState('1');
   const [downloadError, setDownloadError] = useState(null);
+  const { t } = useTranslation();
 
   const getJoke = async () => {
     try {
@@ -62,7 +64,6 @@ function App() {
       });
     return error;
   };
-
   return (
     <div className={style.root}>
       <div className={style.container}>
@@ -75,14 +76,14 @@ function App() {
             <Spinner />
           </>
           )}
-          {error && 'Chuck is on vacation. Try again later.'}
+          {error && t('HttpError')}
         </Quote>
         <Select
           value={categories.reduce(((text, category) => `${text} ${category}`), '')}
           onChange={setCategories}
           selected={categories}
           options={['explicit', 'nerdy']}
-          placeholder="Category"
+          placeholder={t('Categories')}
         />
         <NameInput
           setFirstName={setFirstName}
@@ -93,11 +94,7 @@ function App() {
           className={`${style.bt} ${style.draw}`}
           onClick={getJoke}
         >
-          Draw a random
-          {' '}
-          {(firstName ? `${firstName} ${lastName}` : 'Chuck Norris')}
-          {' '}
-          Joke
+          { t('DrawRandomJoke', { name: (firstName ? `${firstName} ${lastName}` : 'Chuck Norris') })}
         </button>
         <div className={style['bottom-controls']}>
           <JokesCounter
@@ -114,20 +111,20 @@ function App() {
                 downloadJokes();
               }}
             >
-              Save jokes
+              {t('SaveJoke', { count: Number(numberOfJokes) })}
             </button>
           </div>
           <div className={style.errors}>
             { (numberOfJokesError()) && (
             <span className={style.errorJokeCounterText}>
-              You can pick a number from 1 to 100.
+              {t('JokeCounterRangeError')}
             </span>
             )}
             { (downloadError) && (
             <span className={style.errorJokeCounterText}>
-              Something goes wrong. Try again later;
+              {t('DownloadError')}
             </span>
-            )}
+           )}
           </div>
         </div>
       </div>
