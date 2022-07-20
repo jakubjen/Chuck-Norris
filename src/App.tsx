@@ -5,7 +5,6 @@ import {
 } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
-import axios from 'axios';
 import Header from './Componets/Header/Header';
 import Quote from './Componets/Quote/Quote';
 import JokesCounter from './Componets/JokeCounter/JokesCounter';
@@ -15,6 +14,7 @@ import Select from './Componets/SelectCategory/SelectCategory';
 import style from './Css/Index.module.scss';
 import fetchJoke from './Lib/Api/fetchJoke';
 import Spinner from './Componets/Spinner/Spinner';
+import downloadJokes from './Lib/downloadJokes';
 
 function App() {
   const [url] = useState(`${process.env.REACT_APP_BASE_URL}/random`);
@@ -55,17 +55,7 @@ function App() {
   const formikDownloadForm = useFormik({
     initialValues,
     onSubmit: (value: Values, actions) => {
-      setDownloadError(null);
-      axios.get(`${process.env.REACT_APP_BASE_URL}/random/${formikDownloadForm.values.counter}`).then(({ data }) => {
-        const dataToFile = data.value.reduce((cos: string, jokeInLoop:jokeType) => `${cos}${jokeInLoop.joke}\n`, '');
-        const element = document.createElement('a');
-        element.setAttribute('href', `data:text/plain;charset=utf-8, ${encodeURIComponent(dataToFile)}`);
-        element.setAttribute('download', 'jokes.txt');
-        document.body.appendChild(element); // downloadJokes(numberOfJokes);
-        element.click();
-      }).catch((e) => {
-        setDownloadError(e);
-      });
+      downloadJokes(value.counter, setDownloadError);
       actions.setSubmitting(false);
     },
     validationSchema: Yup.object({
