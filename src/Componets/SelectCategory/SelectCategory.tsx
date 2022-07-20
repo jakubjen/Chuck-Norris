@@ -1,5 +1,8 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, {
+  Dispatch, SetStateAction, useRef, useState,
+} from 'react';
 import firstLetterUppercase from '../../Lib/firstLetterUppercase';
+import useOnClickOutside from '../../Lib/hooks/useOnClickOutside';
 import style from './SelectCategory.module.scss';
 
 type Props = {
@@ -24,8 +27,15 @@ function Select({
       onChangeProps([...selectedProps, option]);
     }
   };
+  const selectCategoryListRef = useRef(null);
+  const selectCategoryButtonRef = useRef(null);
+  useOnClickOutside([selectCategoryListRef, selectCategoryButtonRef], () => { setOpen(false); });
+
   return (
-    <div className={`${style['custom-select']} ${(open) ? style.open : ''} ${(valueProps !== '') ? style.select : ''}`}>
+    <div
+      ref={selectCategoryButtonRef}
+      className={`${style['custom-select']} ${(open) ? style.open : ''} ${(valueProps !== '') ? style.select : ''}`}
+    >
       <fieldset>
         <legend>
           <button
@@ -37,7 +47,10 @@ function Select({
             {(valueProps !== '' && !open) ? firstLetterUppercase(valueProps) : placeholderProps}
           </button>
         </legend>
-        <div className={style.options}>
+        <div
+          ref={selectCategoryListRef}
+          className={style.options}
+        >
           {optionsProps.map((option) => (
             <label
               key={option}
