@@ -8,6 +8,7 @@
     "loading":"Loading",
     "error": {
         "request": "Chuck is on vacation. Try again later",
-        "CounterRange": "You can pick a number from 1 to 100." 
+        "CounterRange": "You can pick a number from 1 to 100." ,
+        "required": "Required" 
     }
 }
