@@ -11,6 +11,7 @@ button.bt, input[type=submit] {
     border: none;
     cursor: pointer;
     transition: opacity .2s ease-in;
+    box-shadow: 2px 2px 8px 0px rgba(66, 68, 90, 0.5);
 
     &.draw {
       margin-top: Variables.$margin-top;

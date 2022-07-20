@@ -4,6 +4,8 @@ import {
   useFormik,
 } from 'formik';
 import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
+import axios from 'axios';
 import Header from './Componets/Header/Header';
 import Quote from './Componets/Quote/Quote';
 import JokesCounter from './Componets/JokeCounter/JokesCounter';
@@ -12,10 +14,10 @@ import jokeType from './Types/jokeType';
 import Select from './Componets/SelectCategory/SelectCategory';
 import style from './Css/Index.module.scss';
 import fetchJoke from './Lib/Api/fetchJoke';
+import Spinner from './Componets/Spinner/Spinner';
 
 function App() {
-  const baseUrl = 'http://api.icndb.com/jokes';
-  const [url] = useState(`${baseUrl}/random`);
+  const [url] = useState(`${process.env.REACT_APP_BASE_URL}/random`);
   const [joke, setJoke] = useState<jokeType>();
   const [isPending, setIsPending] = useState<boolean>(true);
   const [error, setError] = useState<any>(null);
@@ -23,6 +25,7 @@ function App() {
   const [lastName, setLastName] = useState('');
   const [categories, setCategories] = useState<string[]>([]);
   const [downloadError, setDownloadError] = useState(null);
+  const { t } = useTranslation();
 
   const getJoke = async () => {
     try {
@@ -52,21 +55,17 @@ function App() {
   const formikDownloadForm = useFormik({
     initialValues,
     onSubmit: (value: Values, actions) => {
-      fetch(`${baseUrl}/random/${value.counter}`)
-        .then((response) => {
-          setDownloadError(null);
-          if (!response.ok) throw new Error('Data not fetch.');
-          return response.json();
-        }).then((data) => {
-          const dataToFile = data.value.reduce((cos: string, jokeInLoop:jokeType) => `${cos}${jokeInLoop.joke}\n`, '');
-          const element = document.createElement('a');
-          element.setAttribute('href', `data:text/plain;charset=utf-8, ${encodeURIComponent(dataToFile)}`);
-          element.setAttribute('download', 'jokes.txt');
-          document.body.appendChild(element); // downloadJokes(numberOfJokes);
-          element.click();
-        }).catch((e) => {
-          setDownloadError(e);
-        });
+      setDownloadError(null);
+      axios.get(`${process.env.REACT_APP_BASE_URL}/random/${formikDownloadForm.values.counter}`).then(({ data }) => {
+        const dataToFile = data.value.reduce((cos: string, jokeInLoop:jokeType) => `${cos}${jokeInLoop.joke}\n`, '');
+        const element = document.createElement('a');
+        element.setAttribute('href', `data:text/plain;charset=utf-8, ${encodeURIComponent(dataToFile)}`);
+        element.setAttribute('download', 'jokes.txt');
+        document.body.appendChild(element); // downloadJokes(numberOfJokes);
+        element.click();
+      }).catch((e) => {
+        setDownloadError(e);
+      });
       actions.setSubmitting(false);
     },
     validationSchema: Yup.object({
@@ -83,15 +82,20 @@ function App() {
         <Header chuckFace={firstName === ''} />
         <Quote>
           {joke && `"${joke.joke}"`}
-          {isPending && 'Loading ...'}
-          {error && 'Chuck is on vacation. Try again later.'}
+          {isPending && !error && (
+          <>
+            Loading ...
+            <Spinner />
+          </>
+          )}
+          {error && t('error.CounterRange')}
         </Quote>
         <Select
           value={categories.reduce(((text, category) => `${text} ${category}`), '')}
           onChange={setCategories}
           selected={categories}
           options={['explicit', 'nerdy']}
-          placeholder="Category"
+          placeholder={t('Categories')}
         />
         <NameInput
           setFirstName={setFirstName}
@@ -102,8 +106,7 @@ function App() {
           className={`${style.bt} ${style.draw}`}
           onClick={getJoke}
         >
-          {`Draw a random${(firstName ? `${firstName} ${lastName}` : 'Chuck Norris')} Joke`}
-
+          { t('DrawRandomJoke', { name: (firstName ? `${firstName} ${lastName}` : 'Chuck Norris') })}
         </button>
         <form onSubmit={formikDownloadForm.handleSubmit}>
           <div className={style['bottom-controls']}>
@@ -118,20 +121,21 @@ function App() {
                 type="submit"
                 className={`${style.bt} ${style['save-jokes']}`}
                 disabled={!!formikDownloadForm.errors.counter}
-                value="Save jokes"
               />
             </div>
+            <div className={style.errors}>
+              { (!!formikDownloadForm.errors.counter) && (
+              <span className={style.errorJokeCounterText}>
+                {formikDownloadForm.errors.counter}
+              </span>
+              )}
+              { (downloadError) && (
+              <span className={style.errorJokeCounterText}>
+                Something goes wrong. Try again later;
+              </span>
+              )}
+            </div>
           </div>
-          { (!!formikDownloadForm.errors.counter) && (
-          <span className={style.errorJokeCounterText}>
-            {formikDownloadForm.errors.counter}
-          </span>
-          )}
-          { (downloadError) && (
-          <span className={style.errorJokeCounterText}>
-            Something goes wrong. Try again later;
-          </span>
-          )}
         </form>
       </div>
     </div>

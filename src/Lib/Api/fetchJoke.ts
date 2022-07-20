@@ -1,9 +1,8 @@
 import jokeType from '../../Types/jokeType';
-import baseUrl from './BaseUrl';
 import fetchData from './fetchData';
 
 const fetchJoke = async (firstName: string, lastName: string, category: string[]) => {
-  let url = `${baseUrl}/random`;
+  let url = `${process.env.REACT_APP_BASE_URL}/random`;
   if (firstName && category.length) {
     url += `?firstName=${firstName}&lastName=${lastName}&limitTo=[${category}]`;
   } else if (firstName) {
