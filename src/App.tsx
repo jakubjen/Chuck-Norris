@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Css/App.css';
 import { useTranslation } from 'react-i18next';
+import axios from 'axios';
 import Header from './Componets/Header/Header';
 import Quote from './Componets/Quote/Quote';
 import JokesCounter from './Componets/JokeCounter/JokesCounter';
@@ -12,8 +13,7 @@ import fetchJoke from './Lib/Api/fetchJoke';
 import Spinner from './Componets/Spinner/Spinner';
 
 function App() {
-  const baseUrl = 'http://api.icndb.com/jokes';
-  const [url] = useState(`${baseUrl}/random`);
+  const [url] = useState(`${process.env.REACT_APP_BASE_URL}/random`);
   const [joke, setJoke] = useState<jokeType>();
   const [isPending, setIsPending] = useState<boolean>(true);
   const [error, setError] = useState<any>(null);
@@ -39,6 +39,7 @@ function App() {
 
   useEffect(() => {
     getJoke();
+    console.log(process.env);
   }, [url]);
 
   const numberOfJokesError = () => {
@@ -47,21 +48,17 @@ function App() {
   };
 
   const downloadJokes = () => {
-    fetch(`${baseUrl}/random/${numberOfJokes}`)
-      .then((response) => {
-        setDownloadError(null);
-        if (!response.ok) throw new Error('Data not fetch.');
-        return response.json();
-      }).then((data) => {
-        const dataToFile = data.value.reduce((cos: string, jokeInLoop:jokeType) => `${cos}${jokeInLoop.joke}\n`, '');
-        const element = document.createElement('a');
-        element.setAttribute('href', `data:text/plain;charset=utf-8, ${encodeURIComponent(dataToFile)}`);
-        element.setAttribute('download', 'jokes.txt');
-        document.body.appendChild(element); // downloadJokes(numberOfJokes);
-        element.click();
-      }).catch((e) => {
-        setDownloadError(e);
-      });
+    setDownloadError(null);
+    axios.get(`${process.env.REACT_APP_BASE_URL}/random/${numberOfJokes}`).then(({ data }) => {
+      const dataToFile = data.value.reduce((cos: string, jokeInLoop:jokeType) => `${cos}${jokeInLoop.joke}\n`, '');
+      const element = document.createElement('a');
+      element.setAttribute('href', `data:text/plain;charset=utf-8, ${encodeURIComponent(dataToFile)}`);
+      element.setAttribute('download', 'jokes.txt');
+      document.body.appendChild(element); // downloadJokes(numberOfJokes);
+      element.click();
+    }).catch((e) => {
+      setDownloadError(e);
+    });
     return error;
   };
   return (
@@ -124,7 +121,7 @@ function App() {
             <span className={style.errorJokeCounterText}>
               {t('DownloadError')}
             </span>
-           )}
+            )}
           </div>
         </div>
       </div>
