@@ -70,9 +70,9 @@ function App() {
     },
     validationSchema: Yup.object({
       counter: Yup.number()
-        .min(1, 'Too Short!')
-        .max(100, 'Too Long!')
-        .required('Required'),
+        .min(1, t('error.CounterRange'))
+        .max(100, t('error.CounterRange'))
+        .required(t('error.required')),
     }),
   });
 
