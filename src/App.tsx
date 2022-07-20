@@ -13,8 +13,7 @@ import fetchJoke from './Lib/Api/fetchJoke';
 import Spinner from './Componets/Spinner/Spinner';
 
 function App() {
-  const baseUrl = 'http://api.icndb.com/jokes';
-  const [url] = useState(`${baseUrl}/random`);
+  const [url] = useState(`${process.env.REACT_APP_BASE_URL}/random`);
   const [joke, setJoke] = useState<jokeType>();
   const [isPending, setIsPending] = useState<boolean>(true);
   const [error, setError] = useState<any>(null);
@@ -40,6 +39,7 @@ function App() {
 
   useEffect(() => {
     getJoke();
+    console.log(process.env);
   }, [url]);
 
   const numberOfJokesError = () => {
@@ -49,7 +49,7 @@ function App() {
 
   const downloadJokes = () => {
     setDownloadError(null);
-    axios.get(`${baseUrl}/random/${numberOfJokes}`).then(({ data }) => {
+    axios.get(`${process.env.REACT_APP_BASE_URL}/random/${numberOfJokes}`).then(({ data }) => {
       const dataToFile = data.value.reduce((cos: string, jokeInLoop:jokeType) => `${cos}${jokeInLoop.joke}\n`, '');
       const element = document.createElement('a');
       element.setAttribute('href', `data:text/plain;charset=utf-8, ${encodeURIComponent(dataToFile)}`);
