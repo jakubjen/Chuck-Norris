@@ -1,11 +1,13 @@
 {
     "SaveJoke_one":"Save joke",
     "SaveJoke_other":"Save jokes",
-    "JokeCounterRangeError":"You can pick a number from 1 to 100.",
     "DownloadError":"Something goes wrong. Try again later",
     "DrawRandomJoke":"Draw a radom {{name}} joke.",
     "ImpersonateChuckNorris":"Impersonate Chuck Norris",
     "Categories":"Categories",
-    "HttpError":"Chuck is on vacation. Try again later",
-    "loading":"Loading"
+    "loading":"Loading",
+    "error": {
+        "request": "Chuck is on vacation. Try again later",
+        "CounterRange": "You can pick a number from 1 to 100." 
+    }
 }
