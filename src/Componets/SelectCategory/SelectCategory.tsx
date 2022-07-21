@@ -50,6 +50,7 @@ function Select({
         <div
           ref={selectCategoryListRef}
           className={style.options}
+          style={{ visibility: (open) ? 'visible' : 'hidden' }}
         >
           {optionsProps.map((option) => (
             <label
@@ -59,6 +60,7 @@ function Select({
               <input
                 type="checkbox"
                 id={`${option}id`}
+                data-testid="select-category-options"
                 value={option}
                 onChange={() => {
                   toggleSelect(option);
