@@ -25,9 +25,6 @@
 
     &.open { 
         border-color: Variables.$dark;
-        fieldset .options {
-            visibility: visible;
-        }
     }
 
     fieldset {
@@ -65,7 +62,6 @@
             box-sizing: content-box;
             border-top: none;
             padding: 10px 0;
-            visibility: hidden;
             font-size: .8em;
         } 
         

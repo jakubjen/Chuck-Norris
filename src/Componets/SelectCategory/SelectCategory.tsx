@@ -50,21 +50,29 @@ function Select({
         <div
           ref={selectCategoryListRef}
           className={style.options}
+          style={{ visibility: (open) ? 'visible' : 'hidden' }}
         >
           {optionsProps.map((option) => (
             <label
               key={option}
               htmlFor={`${option}id`}
+              data-testid="select-category-option-label"
             >
               <input
                 type="checkbox"
                 id={`${option}id`}
+                data-testid="select-category-options"
                 value={option}
                 onChange={() => {
                   toggleSelect(option);
                 }}
               />
-              <span className={`${style.text} ${selectedProps.includes(option) ? style.selected : ''}`}>{firstLetterUppercase(option)}</span>
+              <span
+                data-testid="select-category-options-span"
+                className={`${style.text} ${selectedProps.includes(option) ? style.selected : ''}`}
+              >
+                {firstLetterUppercase(option)}
+              </span>
             </label>
           ))}
         </div>
