@@ -119,6 +119,7 @@ function App() {
             <div className={style['button-wrapper']}>
               <input
                 type="submit"
+                value={t('SaveJoke', { count: Number(formikDownloadForm.values.counter) })}
                 className={`${style.bt} ${style['save-jokes']}`}
                 disabled={!!formikDownloadForm.errors.counter}
               />
