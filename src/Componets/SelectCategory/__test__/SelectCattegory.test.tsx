@@ -96,7 +96,7 @@ describe('SelectCategory', () => {
       expect(optionElement).not.toBeVisible();
     });
   });
-  test('checking element', () => {
+  it('should check option and don\'t close select dropdown', () => {
     render(
       <div data-testid="test-element">
         <Select
@@ -120,7 +120,7 @@ describe('SelectCategory', () => {
     });
     expect(optionElements[0].checked).toBe(true);
   });
-  test('unchecked element', () => {
+  it('should unchecked option and don\'t close select dropdown', () => {
     render(
       <div data-testid="test-element">
         <Select
