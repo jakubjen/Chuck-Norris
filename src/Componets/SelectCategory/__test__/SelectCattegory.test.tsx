@@ -2,17 +2,20 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import {
   fireEvent,
-  render, screen,
+  render, screen, within,
 } from '@testing-library/react';
 import Select from '../SelectCategory';
+import firstLetterUppercase from '../../../Lib/firstLetterUppercase';
 
-describe('NameInput', () => {
+const mockedOptions = ['dog', 'cat'];
+
+describe('SelectCategory', () => {
   it('should render and have placeholder', () => {
     render(<Select
       value=""
       onChange={() => {}}
       selected={[]}
-      options={['dog', 'cats']}
+      options={mockedOptions}
       placeholder="Categories"
     />);
 
@@ -24,13 +27,16 @@ describe('NameInput', () => {
       value=""
       onChange={() => {}}
       selected={[]}
-      options={['dog', 'cats']}
+      options={mockedOptions}
       placeholder="Categories"
     />);
 
-    const optionElements = screen.getAllByTestId('select-category-options');
-    optionElements.forEach((optionElement) => {
-      expect(optionElement).toBeInTheDocument();
+    const labelElements = screen.getAllByTestId('select-category-option-label');
+    expect(mockedOptions.length).toBe(labelElements.length);
+    labelElements.forEach((labelElement, index) => {
+      expect(within(labelElement)
+        .getByTestId('select-category-options-span'))
+        .toHaveTextContent(firstLetterUppercase(mockedOptions[index]));
     });
   });
   it('should have invisible options on start', () => {
@@ -38,7 +44,7 @@ describe('NameInput', () => {
       value=""
       onChange={() => {}}
       selected={[]}
-      options={['dog', 'cats']}
+      options={mockedOptions}
       placeholder="Categories"
     />);
 
@@ -53,7 +59,7 @@ describe('NameInput', () => {
       value=""
       onChange={() => {}}
       selected={[]}
-      options={['dog', 'cats']}
+      options={mockedOptions}
       placeholder="Categories"
     />);
 
@@ -74,7 +80,7 @@ describe('NameInput', () => {
           value=""
           onChange={() => {}}
           selected={[]}
-          options={['dog', 'cats']}
+          options={mockedOptions}
           placeholder="Categories"
         />
       </div>,
@@ -97,7 +103,7 @@ describe('NameInput', () => {
           value=""
           onChange={() => {}}
           selected={[]}
-          options={['dog', 'cats']}
+          options={mockedOptions}
           placeholder="Categories"
         />
       </div>,
@@ -121,7 +127,7 @@ describe('NameInput', () => {
           value=""
           onChange={() => {}}
           selected={[]}
-          options={['dog', 'cats']}
+          options={mockedOptions}
           placeholder="Categories"
         />
       </div>,

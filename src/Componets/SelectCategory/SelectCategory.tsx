@@ -56,6 +56,7 @@ function Select({
             <label
               key={option}
               htmlFor={`${option}id`}
+              data-testid="select-category-option-label"
             >
               <input
                 type="checkbox"
@@ -66,7 +67,12 @@ function Select({
                   toggleSelect(option);
                 }}
               />
-              <span className={`${style.text} ${selectedProps.includes(option) ? style.selected : ''}`}>{firstLetterUppercase(option)}</span>
+              <span
+                data-testid="select-category-options-span"
+                className={`${style.text} ${selectedProps.includes(option) ? style.selected : ''}`}
+              >
+                {firstLetterUppercase(option)}
+              </span>
             </label>
           ))}
         </div>
