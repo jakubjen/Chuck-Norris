@@ -36,6 +36,7 @@ function Select({
       ref={selectCategoryButtonRef}
       className={`${style['custom-select']} ${(open) ? style.open : ''} ${(valueProps !== '') ? style.select : ''}`}
     >
+      <span className={`material-icons ${style.arrow}`}>&#xE5CF;</span>
       <fieldset>
         <legend>
           <button

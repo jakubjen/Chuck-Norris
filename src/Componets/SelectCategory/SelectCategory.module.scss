@@ -27,6 +27,17 @@
         border-color: Variables.$dark;
     }
 
+    .arrow {
+        position: absolute;
+        right: 25px;
+        top: 18px;
+        color: Variables.$dark;
+        transition: transform .2s ease-in;
+    }
+    &.open .arrow {
+        transform: rotate(180deg);
+    }
+
     fieldset {
         border: none;
         
