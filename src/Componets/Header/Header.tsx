@@ -8,7 +8,7 @@ function Header({ chuckFace }:Props) {
   return (
     <header>
       {chuckFace && (<img src="/images/chuck.png" className={style['chuck-image']} alt="Chuck Norris with black hat and black sunglasses" />)}
-      {!chuckFace && (<img src="/images/face.png" className={style.man} alt="Solid icon of man" />)}
+      {!chuckFace && (<img src="/images/face.jpeg" className={style.man} alt="Solid icon of man" />)}
     </header>
   );
 }
