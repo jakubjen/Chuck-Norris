@@ -78,7 +78,7 @@ function App() {
             <Spinner />
           </>
           )}
-          {error && t('error.CounterRange')}
+          {error && t('error.request')}
         </Quote>
         <Select
           value={categories.reduce(((text, category) => `${text} ${category}`), '')}
