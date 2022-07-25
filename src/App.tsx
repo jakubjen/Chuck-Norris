@@ -102,6 +102,7 @@ function App() {
           <div className={style['bottom-controls']}>
             <JokesCounter
               value={formikDownloadForm.values.counter}
+              error={formikDownloadForm.errors.counter}
               setValue={(value: string):void => {
                 formikDownloadForm.setFieldValue('counter', value);
               }}
