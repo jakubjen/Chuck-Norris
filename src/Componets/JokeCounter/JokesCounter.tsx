@@ -4,13 +4,14 @@ import style from './JokesCounter.module.scss';
 
 type Props = {
     value: string,
+    error: string | undefined,
     // eslint-disable-next-line no-unused-vars
     setValue: (value: string) => void;
 }
 
-function JokesCounter({ value, setValue }: Props) {
+function JokesCounter({ value, setValue, error }: Props) {
   return (
-    <div className={`${style['jokes-counter']}`}>
+    <div className={`${style['jokes-counter']} ${(error) ? style.error : ''}`}>
       <button
         type="button"
         aria-label="Decrease number of jokes to download"
