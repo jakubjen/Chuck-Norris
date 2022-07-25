@@ -2,6 +2,7 @@
 
 button.bt, input[type=submit] {
     width: 100%;
+    overflow-wrap: break-word;
     padding: 21px;
     background: Variables.$dark;
     color: Variables.$white;
