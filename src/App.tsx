@@ -9,20 +9,19 @@ import Header from './Componets/Header/Header';
 import Quote from './Componets/Quote/Quote';
 import JokesCounter from './Componets/JokeCounter/JokesCounter';
 import NameInput from './Componets/NameInput/NameInput';
-import jokeType from './Types/jokeType';
 import Select from './Componets/SelectCategory/SelectCategory';
 import style from './Css/Index.module.scss';
 import fetchJoke from './Lib/Api/fetchJoke';
 import Spinner from './Componets/Spinner/Spinner';
 import downloadJokes from './Lib/downloadJokes';
+import firstLetterUppercase from './Lib/firstLetterUppercase';
 
 function App() {
   const [url] = useState(`${process.env.REACT_APP_BASE_URL}/random`);
-  const [joke, setJoke] = useState<jokeType>();
+  const [joke, setJoke] = useState<string>();
   const [isPending, setIsPending] = useState<boolean>(true);
   const [error, setError] = useState<any>(null);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [name, setName] = useState('');
   const [categories, setCategories] = useState<string[]>([]);
   const [downloadError, setDownloadError] = useState(null);
   const { t } = useTranslation();
@@ -32,7 +31,7 @@ function App() {
       setJoke(undefined);
       setError(null);
       setIsPending(true);
-      const jokeFromApi = await fetchJoke(firstName, lastName, categories);
+      const jokeFromApi = await fetchJoke(name, categories);
       setJoke(jokeFromApi);
       setIsPending(false);
     } catch {
@@ -55,7 +54,7 @@ function App() {
   const formikDownloadForm = useFormik({
     initialValues,
     onSubmit: (value: Values, actions) => {
-      downloadJokes(value.counter, setDownloadError);
+      downloadJokes(value.counter, setDownloadError, name, categories);
       actions.setSubmitting(false);
     },
     validationSchema: Yup.object({
@@ -69,9 +68,9 @@ function App() {
   return (
     <div className={style.root}>
       <div className={style.container}>
-        <Header chuckFace={firstName === ''} />
+        <Header chuckFace={name === ''} />
         <Quote>
-          {joke && `"${joke.joke}"`}
+          {joke && `"${joke}"`}
           {isPending && !error && (
           <>
             Loading ...
@@ -81,22 +80,22 @@ function App() {
           {error && t('error.request')}
         </Quote>
         <Select
-          value={categories.reduce(((text, category) => `${text} ${category}`), '')}
+          value={categories.reduce(((text, category) => `${text} ${firstLetterUppercase(category)}`), '')}
           onChange={setCategories}
           selected={categories}
-          options={['explicit', 'nerdy']}
+          options={['political', 'dev']}
           placeholder={t('Categories')}
         />
         <NameInput
-          setFirstName={setFirstName}
-          setLastName={setLastName}
+          name={name}
+          setName={setName}
         />
         <button
           type="button"
           className={`${style.bt} ${style.draw}`}
           onClick={getJoke}
         >
-          { t('DrawRandomJoke', { name: (firstName ? `${firstName} ${lastName}` : 'Chuck Norris') })}
+          { t('DrawRandomJoke', { name: (name ? `${name}` : 'Chuck Norris') })}
         </button>
         <form onSubmit={formikDownloadForm.handleSubmit}>
           <div className={style['bottom-controls']}>

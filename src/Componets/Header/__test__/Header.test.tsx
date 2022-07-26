@@ -20,6 +20,6 @@ describe('Header', () => {
     const imgElement = screen.getByAltText<HTMLImageElement>('Solid icon of man');
     expect(imgElement).toBeInTheDocument();
 
-    expect(imgElement.src.includes('/images/face.png')).toBe(true);
+    expect(imgElement.src.includes('/images/face.jpeg')).toBe(true);
   });
 });
