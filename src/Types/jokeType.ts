@@ -1,7 +1,3 @@
-type jokeType = {
-    id: number,
-    joke: string
-    categories: string[]
-}
+type JokeType = string;
 
-export default jokeType;
+export default JokeType;

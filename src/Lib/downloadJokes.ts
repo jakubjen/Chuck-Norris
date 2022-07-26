@@ -1,4 +1,5 @@
 import React from 'react';
+import JokeType from '../Types/jokeType';
 import fetchJoke from './Api/fetchJoke';
 
 type SetAction = React.SetStateAction<any>;
@@ -15,7 +16,7 @@ const downloadJokes = async (
       requests.push(fetchJoke(name, categories));
     }
     const jokes = await Promise.all(requests);
-    const dataToFile = jokes.reduce((val: string, jokeInLoop) => `${val}${jokeInLoop}\n`, '');
+    const dataToFile = jokes.reduce((val: string, jokeInLoop: JokeType) => `${val}${jokeInLoop}\n`, '');
     const element = document.createElement('a');
     element.setAttribute('href', `data:text/plain;charset=utf-8,${encodeURIComponent(dataToFile)}`);
     element.setAttribute('download', 'jokes.txt');

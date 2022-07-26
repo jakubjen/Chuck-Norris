@@ -1,7 +1,7 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import {
-  render, screen, fireEvent,
+  render, screen,
 } from '@testing-library/react';
 import NameInput from '../NameInput';
 
@@ -17,8 +17,8 @@ jest.mock('react-i18next', () => ({
 describe('NameInput', () => {
   it('should render and have input', () => {
     render(<NameInput
-      setFirstName={() => {}}
-      setLastName={() => {}}
+      name=""
+      setName={() => {}}
     />);
 
     const inputElement = screen.getByRole<HTMLInputElement>('textbox');
@@ -27,23 +27,11 @@ describe('NameInput', () => {
 
   it('should have label', () => {
     render(<NameInput
-      setFirstName={() => {}}
-      setLastName={() => {}}
+      name=""
+      setName={() => {}}
     />);
 
     const labelElement = screen.getByText('ImpersonateChuckNorris');
     expect(labelElement).toBeInTheDocument();
-  });
-
-  it('should be able to type in to input', () => {
-    render(<NameInput
-      setFirstName={() => {}}
-      setLastName={() => {}}
-    />);
-
-    const inputElement = screen.getByRole<HTMLInputElement>('textbox');
-    fireEvent.click(inputElement);
-    fireEvent.change(inputElement, { target: { value: 'Janusz Pyra' } });
-    expect(inputElement.value).toEqual('Janusz Pyra');
   });
 });

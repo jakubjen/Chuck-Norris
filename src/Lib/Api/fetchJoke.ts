@@ -1,3 +1,4 @@
+import JokeType from '../../Types/jokeType';
 import fetchData from './fetchData';
 
 const fetchJoke = async (name: string, category: string[]):Promise<string> => {
@@ -11,7 +12,7 @@ const fetchJoke = async (name: string, category: string[]):Promise<string> => {
   }
   const data = await fetchData(url);
 
-  const joke: string = data.value;
+  const joke: JokeType = data.value;
 
   return joke;
 };
