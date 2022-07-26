@@ -1,18 +1,18 @@
-import jokeType from '../../Types/jokeType';
 import fetchData from './fetchData';
 
-const fetchJoke = async (firstName: string, lastName: string, category: string[]) => {
+const fetchJoke = async (name: string, category: string[]):Promise<string> => {
   let url = `${process.env.REACT_APP_BASE_URL}/random`;
-  if (firstName && category.length) {
-    url += `?firstName=${firstName}&lastName=${lastName}&limitTo=[${category}]`;
-  } else if (firstName) {
-    url += `?firstName=${firstName}&lastName=${lastName}`;
+  if (name && category.length) {
+    url += `?name=${name}&category=${category}`;
+  } else if (name) {
+    url += `?name=${name}`;
   } else if (category.length) {
-    url += `?limitTo=[${category}]`;
+    url += `?category=${category}`;
   }
   const data = await fetchData(url);
 
-  const joke: jokeType = data.value;
+  const joke: string = data.value;
+
   return joke;
 };
 

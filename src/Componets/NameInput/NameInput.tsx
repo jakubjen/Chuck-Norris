@@ -1,16 +1,15 @@
 import React, {
-  Dispatch, SetStateAction, useState,
+  Dispatch, SetStateAction,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import style from './NameInput.module.scss';
 
 type Props = {
-    setFirstName: Dispatch<SetStateAction<string>>
-    setLastName: Dispatch<SetStateAction<string>>
+    setName: Dispatch<SetStateAction<string>>,
+    name: string
 }
 
-function NameInput({ setFirstName, setLastName }:Props) {
-  const [value, setValue] = useState('');
+function NameInput({ setName, name }:Props) {
   const { t } = useTranslation();
   return (
     <div className={style['text-input-wrapper']}>
@@ -18,21 +17,11 @@ function NameInput({ setFirstName, setLastName }:Props) {
         <input
           type="text"
           id="name"
-          value={value}
+          value={name}
           onChange={(e) => {
-            setValue(e.target.value);
-            const newValue = e.target.value;
-            const splitNames = newValue.trim().split(' ');
-            if (splitNames.length === 0) {
-              setFirstName('');
-              setLastName('');
-              return;
-            }
-            setFirstName(splitNames[0]);
-            splitNames.shift();
-            setLastName(splitNames.join(' '));
+            setName(e.target.value);
           }}
-          className={(value !== '') ? style['not-empty'] : ''}
+          className={(name !== '') ? style['not-empty'] : ''}
         />
         <span className={style.label}>{t('ImpersonateChuckNorris')}</span>
       </label>

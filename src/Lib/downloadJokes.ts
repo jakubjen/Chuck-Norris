@@ -1,21 +1,29 @@
-import axios from 'axios';
 import React from 'react';
-import jokeType from '../Types/jokeType';
+import fetchJoke from './Api/fetchJoke';
 
 type SetAction = React.SetStateAction<any>;
 
-const downloadJokes = (numberOfJokes: string, setDownloadError: React.Dispatch<SetAction>) => {
-  setDownloadError(null);
-  axios.get(`${process.env.REACT_APP_BASE_URL}/random/${numberOfJokes}`).then(({ data }) => {
-    const dataToFile = data.value.reduce((cos: string, jokeInLoop:jokeType) => `${cos}${jokeInLoop.joke}\n`, '');
+const downloadJokes = async (
+  numberOfJokes: string,
+  setDownloadError: React.Dispatch<SetAction>,
+  name: string,
+  categories: string[],
+) => {
+  try {
+    const requests: Promise<string>[] = [];
+    for (let i = 0; i < Number(numberOfJokes); i += 1) {
+      requests.push(fetchJoke(name, categories));
+    }
+    const jokes = await Promise.all(requests);
+    const dataToFile = jokes.reduce((val: string, jokeInLoop) => `${val}${jokeInLoop}\n`, '');
     const element = document.createElement('a');
-    element.setAttribute('href', `data:text/plain;charset=utf-8, ${encodeURIComponent(dataToFile)}`);
+    element.setAttribute('href', `data:text/plain;charset=utf-8,${encodeURIComponent(dataToFile)}`);
     element.setAttribute('download', 'jokes.txt');
     document.body.appendChild(element); // downloadJokes(numberOfJokes);
     element.click();
-  }).catch((e) => {
+  } catch (e) {
     setDownloadError(e);
-  });
+  }
 };
 
 export default downloadJokes;
